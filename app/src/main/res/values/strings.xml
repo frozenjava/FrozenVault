@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">FrozenPasswords</string>
+    <string name="add_a_password">Add a Password</string>
+    <string name="passwords_list_placeholder">You don\'t have any passwords yet.</string>
+    <string name="service_name">Service Name</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="save">Save</string>
+    <string name="field_required">Field is required.</string>
+    <string name="password_to_short">Passwords must be at least 8 characters.</string>
+    <string name="access_history">Access History</string>
+    <string name="update_history">Update History</string>
+    <string name="clear">Clear History</string>
+    <string name="no_history_to_display">No history to display.</string>
+</resources>

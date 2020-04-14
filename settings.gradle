@@ -1,0 +1,2 @@
+rootProject.name='FrozenPasswords'
+include ':app'

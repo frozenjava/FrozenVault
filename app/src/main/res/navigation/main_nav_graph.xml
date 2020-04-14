@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/main_nav_graph"
+    app:startDestination="@id/passwordListFragment">
+
+    <fragment
+        android:id="@+id/passwordListFragment"
+        android:name="net.frozendevelopment.frozenpasswords.modules.passwords.list.PasswordListFragment"
+        android:label="Accounts">
+        <action
+            android:id="@+id/action_passwordListFragment_to_editPasswordFragment"
+            app:destination="@id/editPasswordFragment"
+            app:enterAnim="@anim/up_from_bottom"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/down_to_bottom" />
+    </fragment>
+    <fragment
+        android:id="@+id/editPasswordFragment"
+        android:name="net.frozendevelopment.frozenpasswords.modules.passwords.editable.EditPasswordFragment"
+        android:label="Create" />
+</navigation>
