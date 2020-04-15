@@ -1,5 +1,6 @@
 package net.frozendevelopment.frozenpasswords.infrustructure
 
+import androidx.navigation.NavController
 import net.frozendevelopment.frozenpasswords.Session
 import net.frozendevelopment.frozenpasswords.data.AppDatabase
 import net.frozendevelopment.frozenpasswords.data.daos.ServicePasswordDao
@@ -14,6 +15,7 @@ import org.koin.dsl.module
 
 val databaseModule = module {
     single { AppDatabase.getDatabase(androidContext()).servicePasswordDao() }
+    single { AppDatabase.getDatabase(androidContext()).userDao() }
 }
 
 val appModule = module {
@@ -23,5 +25,5 @@ val appModule = module {
 val viewModelsModule = module {
     viewModel { PasswordListViewModel(get(), get()) }
     viewModel { (workingMode: WorkingMode) -> EditPasswordViewModel(workingMode, get(), get()) }
-    viewModel { UnlockViewModel(get()) }
+    viewModel { (navController: NavController) -> UnlockViewModel(navController, get(), get()) }
 }

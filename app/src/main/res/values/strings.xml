@@ -12,4 +12,5 @@
     <string name="update_history">Update History</string>
     <string name="clear">Clear History</string>
     <string name="no_history_to_display">No history to display.</string>
+    <string name="invalid_password">Invalid password. Try Again.</string>
 </resources>

@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/main_nav_graph"
-    app:startDestination="@id/passwordListFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_nav_graph"
+    app:startDestination="@id/unlockFragment">
 
     <fragment
         android:id="@+id/passwordListFragment"
@@ -14,9 +16,23 @@
             app:exitAnim="@anim/slide_out_right"
             app:popEnterAnim="@anim/slide_in_right"
             app:popExitAnim="@anim/down_to_bottom" />
+        <action
+            android:id="@+id/action_passwordListFragment_to_unlockFragment"
+            app:destination="@id/unlockFragment" />
     </fragment>
     <fragment
         android:id="@+id/editPasswordFragment"
         android:name="net.frozendevelopment.frozenpasswords.modules.passwords.editable.EditPasswordFragment"
         android:label="Create" />
+    <fragment
+        android:id="@+id/unlockFragment"
+        android:name="net.frozendevelopment.frozenpasswords.modules.unlock.UnlockFragment"
+        android:label="UnlockFragment">
+        <action
+            android:id="@+id/action_unlockFragment_to_passwordListFragment"
+            app:destination="@id/passwordListFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/main_nav_graph"
+            app:popUpToInclusive="true" />
+    </fragment>
 </navigation>

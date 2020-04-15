@@ -1,6 +1,9 @@
 package net.frozendevelopment.frozenpasswords.extensions
 
 import android.util.Base64
+import java.io.UnsupportedEncodingException
+import java.security.MessageDigest
+import java.security.NoSuchAlgorithmException
 import javax.crypto.Cipher
 import javax.crypto.spec.IvParameterSpec
 import javax.crypto.spec.SecretKeySpec
@@ -35,4 +38,13 @@ fun String.decryptAES(secret: String) : String {
     cipher.init(Cipher.DECRYPT_MODE, keySpec, ivParameterSpec)
     val results = cipher.doFinal(Base64.decode(this, 0))
     return String(results, Charsets.UTF_8)
+}
+
+
+@Throws(NoSuchAlgorithmException::class, UnsupportedEncodingException::class)
+fun String.createHash() : String {
+    val messageDigest: MessageDigest = MessageDigest.getInstance("SHA-256")
+    messageDigest.update(this.toByteArray(Charsets.UTF_8))
+    val digest: ByteArray = messageDigest.digest()
+    return String(digest, Charsets.UTF_8)
 }

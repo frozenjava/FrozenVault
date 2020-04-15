@@ -8,12 +8,15 @@ import androidx.room.TypeConverters
 import net.frozendevelopment.frozenpasswords.data.converters.DateConverter
 import net.frozendevelopment.frozenpasswords.data.converters.ListConverter
 import net.frozendevelopment.frozenpasswords.data.daos.ServicePasswordDao
+import net.frozendevelopment.frozenpasswords.data.daos.UserDao
 import net.frozendevelopment.frozenpasswords.data.models.ServicePasswordModel
+import net.frozendevelopment.frozenpasswords.data.models.UserModel
 
-@Database(entities = [ServicePasswordModel::class], version = 1)
+@Database(entities = [ServicePasswordModel::class, UserModel::class], version = 1)
 @TypeConverters(DateConverter::class, ListConverter::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun servicePasswordDao() : ServicePasswordDao
+    abstract fun userDao(): UserDao
 
     companion object {
         @Volatile
