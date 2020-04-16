@@ -23,7 +23,7 @@ val appModule = module {
 }
 
 val viewModelsModule = module {
-    viewModel { PasswordListViewModel(get(), get()) }
+    viewModel { (navController: NavController) -> PasswordListViewModel(navController, get(), get()) }
     viewModel { (workingMode: WorkingMode) -> EditPasswordViewModel(workingMode, get(), get()) }
     viewModel { (navController: NavController) -> UnlockViewModel(navController, get(), get()) }
 }

@@ -1,18 +1,24 @@
 package net.frozendevelopment.frozenpasswords.modules.passwords.list
 
 import androidx.lifecycle.*
+import androidx.navigation.NavController
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
+import net.frozendevelopment.frozenpasswords.R
 import net.frozendevelopment.frozenpasswords.Session
 import net.frozendevelopment.frozenpasswords.data.daos.ServicePasswordDao
 import net.frozendevelopment.frozenpasswords.infrustructure.StatefulViewModel
 import java.util.*
 
-class PasswordListViewModel(private val dao: ServicePasswordDao, private val session: Session) : StatefulViewModel<PasswordListState>() {
+class PasswordListViewModel(
+    private val navController: NavController,
+    private val dao: ServicePasswordDao,
+    private val session: Session
+) : StatefulViewModel<PasswordListState>() {
 
     override fun getDefaultState(): PasswordListState = PasswordListState()
 
@@ -44,6 +50,15 @@ class PasswordListViewModel(private val dao: ServicePasswordDao, private val ses
 
     fun delete(item: PasswordListState.PasswordCellModel) = viewModelScope.launch(Dispatchers.IO) {
         dao.deleteById(item.id)
+    }
+
+    fun goToLockScreen() {
+        session.secret = null
+        navController.navigate(PasswordListFragmentDirections.actionPasswordListFragmentToUnlockFragment())
+    }
+
+    fun goToAddPassword() {
+        navController.navigate(PasswordListFragmentDirections.actionPasswordListFragmentToEditPasswordFragment())
     }
 
     fun updateAccessHistory(item: PasswordListState.PasswordCellModel) = viewModelScope.launch(Dispatchers.IO) {

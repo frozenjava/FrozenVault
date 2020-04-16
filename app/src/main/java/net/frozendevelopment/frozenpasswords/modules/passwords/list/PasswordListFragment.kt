@@ -24,11 +24,12 @@ import net.frozendevelopment.frozenpasswords.R
 import net.frozendevelopment.frozenpasswords.infrustructure.StatefulFragment
 import net.frozendevelopment.frozenpasswords.modules.history.HistoryDialogFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.parameter.parametersOf
 import java.util.*
 
 class PasswordListFragment : StatefulFragment<PasswordListState, PasswordListViewModel>(R.layout.fragment_password_list_layout), PasswordListAdapter.PasswordItemDelegate {
 
-    override val viewModel: PasswordListViewModel by viewModel()
+    override val viewModel: PasswordListViewModel by viewModel { parametersOf(findNavController()) }
 
     private val adapter: PasswordListAdapter by lazy {
         PasswordListAdapter(requireContext(), viewModel.state.passwords, this)
@@ -51,9 +52,7 @@ class PasswordListFragment : StatefulFragment<PasswordListState, PasswordListVie
         passwordsRecyclerView.adapter = adapter
         passwordsRecyclerView.addItemDecoration(DividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL))
 
-        passwordsPlaceholderButton.setOnClickListener {
-            findNavController().navigate(R.id.action_passwordListFragment_to_editPasswordFragment)
-        }
+        passwordsPlaceholderButton.setOnClickListener { viewModel.goToAddPassword() }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -62,7 +61,8 @@ class PasswordListFragment : StatefulFragment<PasswordListState, PasswordListVie
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.newPassword -> findNavController().navigate(R.id.action_passwordListFragment_to_editPasswordFragment)
+            R.id.newPassword -> viewModel.goToAddPassword()
+            R.id.lock -> viewModel.goToLockScreen()
         }
 
         return super.onOptionsItemSelected(item)
