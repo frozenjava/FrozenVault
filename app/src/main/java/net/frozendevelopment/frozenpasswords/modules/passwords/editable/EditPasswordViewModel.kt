@@ -5,7 +5,7 @@ import androidx.lifecycle.OnLifecycleEvent
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import net.frozendevelopment.frozenpasswords.Session
+import net.frozendevelopment.frozenpasswords.AppSession
 import net.frozendevelopment.frozenpasswords.data.daos.ServicePasswordDao
 import net.frozendevelopment.frozenpasswords.data.models.ServicePasswordModel
 import net.frozendevelopment.frozenpasswords.extensions.decryptAES
@@ -17,7 +17,7 @@ import java.util.*
 class EditPasswordViewModel(
     private var workingMode: WorkingMode,
     private val dao: ServicePasswordDao,
-    private val session: Session): StatefulViewModel<EditPasswordState>() {
+    private val appSession: AppSession): StatefulViewModel<EditPasswordState>() {
 
     override fun getDefaultState(): EditPasswordState {
         return EditPasswordState(workingMode = workingMode)
@@ -32,7 +32,7 @@ class EditPasswordViewModel(
         state = state.copy(
             serviceName = dbModel.serviceName,
             username = dbModel.userName,
-            password = dbModel.password.decryptAES(session.secret!!)
+            password = dbModel.password.decryptAES(appSession.secret!!)
         )
     }
 
@@ -95,7 +95,7 @@ class EditPasswordViewModel(
         val model = ServicePasswordModel(
             serviceName = state.serviceName!!,
             userName = state.username,
-            password = state.password!!.encryptAES(session.secret!!),
+            password = state.password!!.encryptAES(appSession.secret!!),
             created = Date(),
             updateHistory = listOf(),
             accessHistory = listOf()
@@ -112,7 +112,7 @@ class EditPasswordViewModel(
         val updated = current.copy(
             serviceName = state.serviceName!!,
             userName = state.username,
-            password = state.password!!.encryptAES(session.secret!!),
+            password = state.password!!.encryptAES(appSession.secret!!),
             updateHistory = updateHistory
         )
 

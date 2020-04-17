@@ -4,6 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
+import kotlinx.coroutines.flow.Flow
 import net.frozendevelopment.frozenpasswords.data.models.UserModel
 
 @Dao
@@ -13,6 +14,12 @@ abstract class UserDao {
 
     @Query("SELECT * FROM User LIMIT 1")
     abstract suspend fun getUser(): UserModel
+
+    @Query("SELECT * FROM User LIMIT 1")
+    abstract fun getUserFlow(): Flow<UserModel>
+
+    @Query("SELECT * FROM User")
+    abstract fun getAllUsers(): List<UserModel>
 
     @Insert
     protected abstract suspend fun insert(userModel: UserModel)

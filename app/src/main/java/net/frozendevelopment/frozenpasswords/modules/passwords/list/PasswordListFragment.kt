@@ -24,12 +24,11 @@ import net.frozendevelopment.frozenpasswords.R
 import net.frozendevelopment.frozenpasswords.infrustructure.StatefulFragment
 import net.frozendevelopment.frozenpasswords.modules.history.HistoryDialogFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import org.koin.core.parameter.parametersOf
 import java.util.*
 
 class PasswordListFragment : StatefulFragment<PasswordListState, PasswordListViewModel>(R.layout.fragment_password_list_layout), PasswordListAdapter.PasswordItemDelegate {
 
-    override val viewModel: PasswordListViewModel by viewModel { parametersOf(findNavController()) }
+    override val viewModel: PasswordListViewModel by viewModel()
 
     private val adapter: PasswordListAdapter by lazy {
         PasswordListAdapter(requireContext(), viewModel.state.passwords, this)
@@ -52,7 +51,7 @@ class PasswordListFragment : StatefulFragment<PasswordListState, PasswordListVie
         passwordsRecyclerView.adapter = adapter
         passwordsRecyclerView.addItemDecoration(DividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL))
 
-        passwordsPlaceholderButton.setOnClickListener { viewModel.goToAddPassword() }
+        passwordsPlaceholderButton.setOnClickListener { viewModel.goToAddPassword(findNavController()) }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -61,8 +60,9 @@ class PasswordListFragment : StatefulFragment<PasswordListState, PasswordListVie
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.newPassword -> viewModel.goToAddPassword()
-            R.id.lock -> viewModel.goToLockScreen()
+            R.id.newPassword -> viewModel.goToAddPassword(findNavController())
+            R.id.lock -> viewModel.goToLockScreen(findNavController())
+            R.id.account -> viewModel.goToSettings(findNavController())
         }
 
         return super.onOptionsItemSelected(item)
@@ -118,7 +118,6 @@ class PasswordListFragment : StatefulFragment<PasswordListState, PasswordListVie
     private fun buildAccessHistoryDelegate(item: PasswordListState.PasswordCellModel) : HistoryDialogFragment.HistoryDelegate {
         return object: HistoryDialogFragment.HistoryDelegate {
             override fun getTitleStringResource(): Int = R.string.access_history
-            override fun onClearHistoryClicked() {}
             override fun getHistoryData(): Flow<List<Date>> = viewModel.getAccessHistory(item)
         }
     }
@@ -126,7 +125,6 @@ class PasswordListFragment : StatefulFragment<PasswordListState, PasswordListVie
     private fun buildUpdateHistoryDelegate(item: PasswordListState.PasswordCellModel) : HistoryDialogFragment.HistoryDelegate {
         return object: HistoryDialogFragment.HistoryDelegate {
             override fun getTitleStringResource(): Int = R.string.update_history
-            override fun onClearHistoryClicked() {}
             override fun getHistoryData(): Flow<List<Date>> = viewModel.getUpdateHistory(item)
         }
     }

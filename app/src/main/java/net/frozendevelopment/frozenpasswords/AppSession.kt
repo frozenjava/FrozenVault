@@ -1,5 +1,5 @@
 package net.frozendevelopment.frozenpasswords
 
-class Session {
+class AppSession {
     var secret: String? = "Dolphins"
 }

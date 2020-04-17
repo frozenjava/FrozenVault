@@ -8,16 +8,14 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
-import net.frozendevelopment.frozenpasswords.R
-import net.frozendevelopment.frozenpasswords.Session
+import net.frozendevelopment.frozenpasswords.AppSession
 import net.frozendevelopment.frozenpasswords.data.daos.ServicePasswordDao
 import net.frozendevelopment.frozenpasswords.infrustructure.StatefulViewModel
 import java.util.*
 
 class PasswordListViewModel(
-    private val navController: NavController,
     private val dao: ServicePasswordDao,
-    private val session: Session
+    private val appSession: AppSession
 ) : StatefulViewModel<PasswordListState>() {
 
     override fun getDefaultState(): PasswordListState = PasswordListState()
@@ -28,7 +26,7 @@ class PasswordListViewModel(
             .map { dbModels ->
                 dbModels.map {
                     val currentState = state.passwords.firstOrNull { statePassword -> statePassword.id == it.id }
-                    var new = PasswordListState.PasswordCellModel.fromServicePasswordModel(it, session.secret!!)
+                    var new = PasswordListState.PasswordCellModel.fromServicePasswordModel(it, appSession.secret!!)
                     if (currentState != null) {
                         new = new.copy(expanded = currentState.expanded)
                     }
@@ -52,13 +50,17 @@ class PasswordListViewModel(
         dao.deleteById(item.id)
     }
 
-    fun goToLockScreen() {
-        session.secret = null
+    fun goToLockScreen(navController: NavController) {
+        appSession.secret = null
         navController.navigate(PasswordListFragmentDirections.actionPasswordListFragmentToUnlockFragment())
     }
 
-    fun goToAddPassword() {
+    fun goToAddPassword(navController: NavController) {
         navController.navigate(PasswordListFragmentDirections.actionPasswordListFragmentToEditPasswordFragment())
+    }
+
+    fun goToSettings(navController: NavController) {
+        navController.navigate(PasswordListFragmentDirections.actionPasswordListFragmentToSettingsFragment())
     }
 
     fun updateAccessHistory(item: PasswordListState.PasswordCellModel) = viewModelScope.launch(Dispatchers.IO) {

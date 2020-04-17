@@ -14,12 +14,12 @@ import org.koin.core.parameter.parametersOf
 
 class UnlockFragment : StatefulFragment<UnlockState, UnlockViewModel>(R.layout.fragment_unlock_layout) {
 
-    override val viewModel: UnlockViewModel by viewModel { parametersOf(findNavController()) }
+    override val viewModel: UnlockViewModel by viewModel()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         unlockPassword.onTextChanged { password -> viewModel.state = viewModel.state.copy(password=password) }
-        unlockButton.setOnClickListener { viewModel.attemptUnlock() }
+        unlockButton.setOnClickListener { viewModel.attemptUnlock(findNavController()) }
     }
 
     override fun applyStateToView(state: UnlockState) {

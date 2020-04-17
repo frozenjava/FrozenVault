@@ -9,7 +9,7 @@
         <item name="textInputStyle">@style/TextInputStyle</item>
         <item name="android:statusBarColor">@android:color/background_dark</item>
         <item name="toolbarStyle">@style/ToolbarStyle</item>
-        <item name="bottomSheetStyle">@style/BottomSheetTheme</item>
+        <item name="bottomSheetDialogTheme">@style/BottomSheetTheme</item>
     </style>
 
     <style name="TextTitle" parent="Widget.MaterialComponents.TextView">
@@ -30,11 +30,16 @@
         <item name="iconTint">?android:attr/textColorPrimary</item>
     </style>
 
-    <style name="BottomSheetTheme" parent="Theme.Design.Light.BottomSheetDialog">
+    <style name="BottomSheetTheme" parent="ThemeOverlay.MaterialComponents.Dialog">
         <item name="bottomSheetStyle">@style/BottomSheetStyle</item>
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowSoftInputMode">adjustResize</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowAnimationStyle">@style/Animation.MaterialComponents.BottomSheetDialog</item>
     </style>
-    
-    <style name="BottomSheetStyle" parent="Widget.Design.BottomSheet.Modal">
+
+    <style name="BottomSheetStyle" parent="Theme.MaterialComponents.BottomSheetDialog">
         <item name="android:background">@drawable/rounded_rectangle</item>
     </style>
 

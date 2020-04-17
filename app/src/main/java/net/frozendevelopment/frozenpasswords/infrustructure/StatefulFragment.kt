@@ -27,7 +27,7 @@ abstract class StatefulFragment<TState, TViewModel: StatefulViewModel<TState>> :
     ): View? {
         viewLifecycleOwner.lifecycle.addObserver(viewModel)
         viewLifecycleOwner.lifecycleScope.launchWhenCreated {
-            viewModel.observableState.asFlow()
+            viewModel.stateChannel.asFlow()
                 .distinctUntilChanged()
                 .collect {
                     applyStateToView(it)

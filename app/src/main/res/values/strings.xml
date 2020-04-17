@@ -13,4 +13,20 @@
     <string name="clear">Clear History</string>
     <string name="no_history_to_display">No history to display.</string>
     <string name="invalid_password">Invalid password. Try Again.</string>
+    <string name="view_failed_login_attempts">View Failed Login Attempts</string>
+    <string name="view_login_history">View Login History</string>
+    <string name="login_history">Login History</string>
+    <string name="failed_login_attempts">Failed Login Attempts</string>
+    <string name="wipe_all_data">Wipe All Data</string>
+    <string name="change_password">Change Password</string>
+    <string name="recovery_keys">Recovery Keys</string>
+    <string name="biometric_login">Biometric Login</string>
+    <string name="light">Light</string>
+    <string name="dark">Dark</string>
+    <string name="system">System</string>
+    <string name="current_password">Current Password</string>
+    <string name="new_password">New Password</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="password_mismatch">New password and confirmation must match.</string>
+    <string name="password_changed">Password changed.</string>
 </resources>

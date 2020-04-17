@@ -8,15 +8,15 @@ import kotlinx.coroutines.launch
 
 abstract class StatefulViewModel<TState> : ViewModel(), LifecycleObserver {
 
-    val observableState: ConflatedBroadcastChannel<TState> by lazy {
+    val stateChannel: ConflatedBroadcastChannel<TState> by lazy {
         ConflatedBroadcastChannel(getDefaultState())
     }
 
     var state: TState
-        get() = observableState.valueOrNull ?: getDefaultState()
+        get() = stateChannel.valueOrNull ?: getDefaultState()
         set(value) {
             viewModelScope.launch {
-                observableState.send(value)
+                stateChannel.send(value)
             }
         }
 

@@ -23,7 +23,6 @@ class HistoryDialogFragment : BottomSheetDialogFragment() {
 
     interface HistoryDelegate {
         fun getTitleStringResource(): Int
-        fun onClearHistoryClicked()
         fun getHistoryData(): Flow<List<Date>>
     }
 

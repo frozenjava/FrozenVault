@@ -7,7 +7,7 @@ import androidx.navigation.NavController
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import net.frozendevelopment.frozenpasswords.R
-import net.frozendevelopment.frozenpasswords.Session
+import net.frozendevelopment.frozenpasswords.AppSession
 import net.frozendevelopment.frozenpasswords.data.daos.UserDao
 import net.frozendevelopment.frozenpasswords.data.models.UserModel
 import net.frozendevelopment.frozenpasswords.extensions.createHash
@@ -16,24 +16,23 @@ import net.frozendevelopment.frozenpasswords.utils.createSalt
 import java.util.*
 
 class UnlockViewModel(
-    private val navController: NavController,
-    private val session: Session,
+    private val appSession: AppSession,
     private val dao: UserDao
 ) : StatefulViewModel<UnlockState>() {
 
     override fun getDefaultState(): UnlockState = UnlockState()
 
-    @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
-    fun register() = viewModelScope.launch {
-        val salt = createSalt()
-        val hash = "Dolphins$salt".createHash()
-        val userModel = UserModel(
-            passwordHash = hash,
-            passwordSalt = salt,
-            loginHistory = listOf()
-        )
-        dao.register(userModel)
-    }
+//    @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
+//    fun register() = viewModelScope.launch {
+//        val salt = createSalt()
+//        val hash = "Dolphins$salt".createHash()
+//        val userModel = UserModel(
+//            passwordHash = hash,
+//            passwordSalt = salt,
+//            loginHistory = listOf()
+//        )
+//        dao.register(userModel)
+//    }
 
     private fun validate() : Boolean {
         if (state.password.isNullOrBlank()) {
@@ -45,7 +44,7 @@ class UnlockViewModel(
         return true
     }
 
-    fun attemptUnlock() = viewModelScope.launch(Dispatchers.IO) {
+    fun attemptUnlock(navController: NavController) = viewModelScope.launch(Dispatchers.IO) {
         if (!validate()) return@launch
 
         val user = dao.getUser()
@@ -68,7 +67,7 @@ class UnlockViewModel(
         updated.id = user.id
         dao.update(updated)
 
-        session.secret = state.password
+        appSession.secret = state.password
     }
 
     private suspend fun unlockFailed(user: UserModel) {
