@@ -33,4 +33,6 @@
     <string name="generate_random_password">Generate Random Password</string>
     <string name="numbers">Numbers</string>
     <string name="symbols">Symbols</string>
+    <string name="welcome_to_frozen_passwords">Welcome To Frozen Passwords</string>
+    <string name="start_using">Start Using</string>
 </resources>

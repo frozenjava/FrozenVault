@@ -61,4 +61,12 @@
         android:id="@+id/changePasswordFragment"
         android:name="net.frozendevelopment.frozenpasswords.modules.changepassword.ChangePasswordFragment"
         android:label="ChangePasswordFragment" />
+    <fragment
+        android:id="@+id/setupFragment"
+        android:name="net.frozendevelopment.frozenpasswords.modules.setup.SetupFragment"
+        android:label="SetupFragment" >
+        <action
+            android:id="@+id/action_setupFragment_to_passwordListFragment"
+            app:destination="@id/passwordListFragment" />
+    </fragment>
 </navigation>

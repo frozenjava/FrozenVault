@@ -17,11 +17,12 @@ import org.koin.dsl.module
 val databaseModule = module {
     factory { AppDatabase.getDatabase(androidContext()).servicePasswordDao() }
     factory { AppDatabase.getDatabase(androidContext()).userDao() }
-    single { AppThemeService(androidContext().getSharedPreferences("FrozenPasswordsPrefs", Context.MODE_PRIVATE)) }
+    single { AppThemeService(get()) }
 }
 
 val appModule = module {
-    single { AppSession() }
+    factory { androidContext().getSharedPreferences("FrozenPasswordsPrefs", Context.MODE_PRIVATE) }
+    single { AppSession(get()) }
 }
 
 val viewModelsModule = module {
