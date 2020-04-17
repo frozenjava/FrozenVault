@@ -29,4 +29,8 @@
     <string name="confirm_password">Confirm Password</string>
     <string name="password_mismatch">New password and confirmation must match.</string>
     <string name="password_changed">Password changed.</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="generate_random_password">Generate Random Password</string>
+    <string name="numbers">Numbers</string>
+    <string name="symbols">Symbols</string>
 </resources>

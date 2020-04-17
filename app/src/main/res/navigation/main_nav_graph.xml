@@ -19,6 +19,8 @@
         <action
             android:id="@+id/action_passwordListFragment_to_unlockFragment"
             app:destination="@id/unlockFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_left"
             app:launchSingleTop="true"
             app:popUpTo="@id/main_nav_graph"
             app:popUpToInclusive="true" />
@@ -41,6 +43,8 @@
         <action
             android:id="@+id/action_unlockFragment_to_passwordListFragment"
             app:destination="@id/passwordListFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_right"
             app:launchSingleTop="true"
             app:popUpTo="@id/main_nav_graph"
             app:popUpToInclusive="true" />

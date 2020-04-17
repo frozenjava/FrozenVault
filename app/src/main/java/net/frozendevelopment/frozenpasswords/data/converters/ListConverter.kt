@@ -26,17 +26,10 @@ class ListConverter {
     }
 
     @TypeConverter
-    fun loginAttemptListToJson(value: List<UserModel.LoginAttempt>): String {
-        val dateConverter = DateConverter()
-        val mappedValues: List<Pair<UserModel.LoginMode, Long?>> = value.map { loginAttempt ->
-            Pair(loginAttempt.loginMode, dateConverter.dateToTimestamp(loginAttempt.attemptDate))
-        }
-        return Gson().toJson(mappedValues)
-    }
+    fun loginAttemptListToJson(value: List<UserModel.LoginAttempt>): String  = Gson().toJson(value)
 
     @TypeConverter
     fun jsonToLoginAttemptList(value: String?): List<UserModel.LoginAttempt> {
-        val dateConverter = DateConverter()
         val objects = Gson().fromJson(value, Array<UserModel.LoginAttempt>::class.java) as Array<UserModel.LoginAttempt>
         return objects.toList()
     }

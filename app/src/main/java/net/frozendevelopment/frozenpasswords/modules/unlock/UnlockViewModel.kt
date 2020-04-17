@@ -22,17 +22,17 @@ class UnlockViewModel(
 
     override fun getDefaultState(): UnlockState = UnlockState()
 
-//    @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
-//    fun register() = viewModelScope.launch {
-//        val salt = createSalt()
-//        val hash = "Dolphins$salt".createHash()
-//        val userModel = UserModel(
-//            passwordHash = hash,
-//            passwordSalt = salt,
-//            loginHistory = listOf()
-//        )
-//        dao.register(userModel)
-//    }
+    @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
+    fun register() = viewModelScope.launch {
+        val salt = createSalt()
+        val hash = "Dolphins$salt".createHash()
+        val userModel = UserModel(
+            passwordHash = hash,
+            passwordSalt = salt,
+            loginHistory = listOf()
+        )
+        dao.register(userModel)
+    }
 
     private fun validate() : Boolean {
         if (state.password.isNullOrBlank()) {
@@ -77,6 +77,7 @@ class UnlockViewModel(
             ))
         updated.id = user.id
         dao.update(updated)
+        state = state.copy(errorMessageResource = R.string.invalid_password)
     }
 
 }
