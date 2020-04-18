@@ -2,7 +2,6 @@ package net.frozendevelopment.frozenpasswords.data.converters
 
 import androidx.room.TypeConverter
 import com.google.gson.Gson
-import net.frozendevelopment.frozenpasswords.data.models.UserModel
 import java.util.*
 
 class ListConverter {
@@ -23,15 +22,6 @@ class ListConverter {
         return objects.mapNotNull { timestamp ->
             dateConverter.fromTimestamp(timestamp)
         }
-    }
-
-    @TypeConverter
-    fun loginAttemptListToJson(value: List<UserModel.LoginAttempt>): String  = Gson().toJson(value)
-
-    @TypeConverter
-    fun jsonToLoginAttemptList(value: String?): List<UserModel.LoginAttempt> {
-        val objects = Gson().fromJson(value, Array<UserModel.LoginAttempt>::class.java) as Array<UserModel.LoginAttempt>
-        return objects.toList()
     }
 
 }

@@ -7,16 +7,17 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import net.frozendevelopment.frozenpasswords.data.converters.DateConverter
 import net.frozendevelopment.frozenpasswords.data.converters.ListConverter
+import net.frozendevelopment.frozenpasswords.data.converters.UnLockEventTypeConverter
 import net.frozendevelopment.frozenpasswords.data.daos.ServicePasswordDao
-import net.frozendevelopment.frozenpasswords.data.daos.UserDao
+import net.frozendevelopment.frozenpasswords.data.daos.UnlockEventDao
 import net.frozendevelopment.frozenpasswords.data.models.ServicePasswordModel
-import net.frozendevelopment.frozenpasswords.data.models.UserModel
+import net.frozendevelopment.frozenpasswords.data.models.UnlockEventModel
 
-@Database(entities = [ServicePasswordModel::class, UserModel::class], version = 1)
-@TypeConverters(DateConverter::class, ListConverter::class)
+@Database(entities = [ServicePasswordModel::class, UnlockEventModel::class], version = 1)
+@TypeConverters(DateConverter::class, ListConverter::class, UnLockEventTypeConverter::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun servicePasswordDao() : ServicePasswordDao
-    abstract fun userDao(): UserDao
+    abstract fun unlockEventDao(): UnlockEventDao
 
     companion object {
         @Volatile

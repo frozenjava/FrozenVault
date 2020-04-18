@@ -1,7 +1,6 @@
 package net.frozendevelopment.frozenpasswords
 
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
@@ -20,24 +19,28 @@ import org.koin.android.ext.android.inject
 class MainActivity : AppCompatActivity() {
 
     private val appThemeService: AppThemeService by inject()
+    private val appSession: AppSession by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AppCompatDelegate.setDefaultNightMode(appThemeService.loadDefaultTheme().theme)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(mainToolbar)
-        val appBarConfiguration = AppBarConfiguration(setOf(R.id.unlockFragment, R.id.passwordListFragment))
+        val appBarConfiguration = AppBarConfiguration(setOf(R.id.unlockFragment, R.id.passwordListFragment, R.id.setupFragment))
         mainToolbar.setupWithNavController(findNavController(R.id.mainFragmentContainer), appBarConfiguration)
-
         findNavController(R.id.mainFragmentContainer).addOnDestinationChangedListener { controller, destination, arguments ->
             dismissKeyboard()
-            mainToolbar.isVisible = destination.id != R.id.unlockFragment
+            mainToolbar.isVisible = destination.id !in  setOf(R.id.unlockFragment, R.id.setupFragment)
         }
 
         lifecycleScope.launchWhenCreated {
             appThemeService.getThemeChangeEvents().collect {
                 AppCompatDelegate.setDefaultNightMode(it.theme)
             }
+        }
+
+        if (!appSession.accountExists) {
+            findNavController(R.id.mainFragmentContainer).navigate(R.id.setupFragment)
         }
     }
 

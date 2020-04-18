@@ -5,7 +5,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import net.frozendevelopment.frozenpasswords.AppSession
 import net.frozendevelopment.frozenpasswords.data.daos.ServicePasswordDao
-import net.frozendevelopment.frozenpasswords.data.daos.UserDao
+import net.frozendevelopment.frozenpasswords.data.daos.UnlockEventDao
 import net.frozendevelopment.frozenpasswords.extensions.createHash
 import net.frozendevelopment.frozenpasswords.extensions.decryptAES
 import net.frozendevelopment.frozenpasswords.extensions.encryptAES
@@ -15,7 +15,6 @@ import net.frozendevelopment.frozenpasswords.utils.createSalt
 
 class ChangePasswordViewModel(
     private val appSession: AppSession,
-    private val userDao: UserDao,
     private val passwordDao: ServicePasswordDao
 ) : StatefulViewModel<ChangePasswordState>() {
 
@@ -82,14 +81,7 @@ class ChangePasswordViewModel(
         if (!isValid()) return@launch
         status = ChangePasswordState.Status.IN_PROGRESS
 
-        val newSalt = createSalt()
-        val hashedPass = (state.newPassword!!+newSalt).createHash()
-        val userModel = userDao.getUser()
-        val updatedUser = userModel.copy(passwordHash = hashedPass, passwordSalt = newSalt)
-        updatedUser.id = userModel.id
-        userDao.update(updatedUser)
-
-        appSession.secret = state.newPassword!!
+        appSession.updateSecret(state.newPassword!!)
 
         passwordDao.getAllItems().parallelProcess { dbModel ->
             val plainText = dbModel.password.decryptAES(state.password!!)

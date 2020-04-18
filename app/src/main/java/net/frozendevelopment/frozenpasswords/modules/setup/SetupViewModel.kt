@@ -49,13 +49,12 @@ class SetupViewModel(private val appSession: AppSession) : StatefulViewModel<Set
     fun performSetup(navController: NavController) = viewModelScope.launch(Dispatchers.IO) {
         if (!isValid()) return@launch
 
-        val salt = createSalt()
-        val hashedPassword = (state.password+salt).createHash()
+        appSession.updateSecret(secret = state.password!!)
+        appSession.attemptUnlock(state.password!!)
 
-        appSession.secret = state.password
-        appSession.secretSalt = salt
-        appSession.hashedSecret = hashedPassword
-        appSession.save()
+        launch(Dispatchers.Main) {
+            navController.navigate(SetupFragmentDirections.actionSetupFragmentToPasswordListFragment())
+        }
     }
 
 }

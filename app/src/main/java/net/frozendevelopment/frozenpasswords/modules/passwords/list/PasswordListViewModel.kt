@@ -51,7 +51,7 @@ class PasswordListViewModel(
     }
 
     fun goToLockScreen(navController: NavController) {
-        appSession.secret = null
+        appSession.lockSession()
         navController.navigate(PasswordListFragmentDirections.actionPasswordListFragmentToUnlockFragment())
     }
 

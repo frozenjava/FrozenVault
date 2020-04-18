@@ -46,5 +46,5 @@ fun String.createHash() : String {
     val messageDigest: MessageDigest = MessageDigest.getInstance("SHA-256")
     messageDigest.update(this.toByteArray(Charsets.UTF_8))
     val digest: ByteArray = messageDigest.digest()
-    return String(digest, Charsets.UTF_8)
+    return Base64.encodeToString(digest, 0).trim()
 }
