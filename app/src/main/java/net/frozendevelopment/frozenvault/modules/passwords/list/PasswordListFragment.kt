@@ -8,7 +8,6 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
-import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
@@ -16,6 +15,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_password_list_layout.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -25,6 +25,7 @@ import net.frozendevelopment.frozenvault.infrustructure.StatefulFragment
 import net.frozendevelopment.frozenvault.modules.history.HistoryDialogFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.*
+import org.jetbrains.anko.*
 
 class PasswordListFragment : StatefulFragment<PasswordListState, PasswordListViewModel>(R.layout.fragment_password_list_layout), PasswordListAdapter.PasswordItemDelegate {
 
@@ -40,7 +41,10 @@ class PasswordListFragment : StatefulFragment<PasswordListState, PasswordListVie
 
         requireActivity().onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-
+                requireContext().alert(R.string.lock_dialog, R.string.lock_confirmation_title) {
+                    positiveButton(R.string.positive_action) { viewModel.goToLockScreen(findNavController()) }
+                    negativeButton(R.string.negative_action) { it.dismiss() }
+                }.show()
             }
         })
     }
@@ -93,7 +97,7 @@ class PasswordListFragment : StatefulFragment<PasswordListState, PasswordListVie
                 val clipboardManager: ClipboardManager = requireActivity().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
                 val clip: ClipData = ClipData.newPlainText(item.service, item.password)
                 clipboardManager.setPrimaryClip(clip)
-                Toast.makeText(requireContext(), "Copied to clipboard", Toast.LENGTH_SHORT).show()
+                Snackbar.make(requireView(), R.string.copied_to_clipboard, Snackbar.LENGTH_SHORT).show()
             }
             PasswordListAdapter.PasswordItemDelegate.ClickedElement.EditButton -> {
                 viewModel.updateAccessHistory(item)
@@ -103,8 +107,10 @@ class PasswordListFragment : StatefulFragment<PasswordListState, PasswordListVie
                 )
             }
             PasswordListAdapter.PasswordItemDelegate.ClickedElement.DeleteButton -> {
-                // Todo: Show confirmation dialog before deleting.
-                viewModel.delete(item)
+                requireContext().alert(R.string.delete_dialog, R.string.delete_confirmation_title) {
+                    positiveButton(R.string.positive_action) { viewModel.delete(item) }
+                    negativeButton(R.string.negative_action) { it.dismiss() }
+                }.show()
             }
             PasswordListAdapter.PasswordItemDelegate.ClickedElement.UpdateHistoryButton -> {
                 showHistoryDialog(buildUpdateHistoryDelegate(item))

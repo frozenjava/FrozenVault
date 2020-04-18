@@ -37,4 +37,14 @@
     <string name="start_using">Start Using</string>
     <string name="eight_char_min">Should be 8 characters at minimum.</string>
     <string name="password_to_unlock">Password used to unlock the app.</string>
+    <string name="password_saved">Password saved successfully!</string>
+    <string name="copied_to_clipboard">Copied to clipboard</string>
+    <string name="lock_confirmation_title">Lock Frozen Vault?</string>
+    <string name="lock_dialog">Do you want to return to the lock screen?</string>
+    <string name="delete_confirmation_title">Delete?</string>
+    <string name="delete_dialog">Do you really want to delete this item? This can not be undone.</string>
+    <string name="positive_action">Yes</string>
+    <string name="negative_action">No</string>
+    <string name="leave_without_saving_dialog">Do you want to leave? Changes will not be saved.</string>
+    <string name="leave_without_saving_title">Warning</string>
 </resources>

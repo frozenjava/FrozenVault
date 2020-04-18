@@ -10,13 +10,20 @@ data class EditPasswordState(
     val includeNumbers: Boolean = true,
     val randomLength: Int = 50,
     val errors: List<EditStateError> = listOf(),
-    val workingMode: WorkingMode
+    val workingMode: WorkingMode,
+    val status: Status = Status.Idle
 ) {
 
     enum class EditStateError(val description: Int) {
         ServiceNameRequired(R.string.field_required),
         PasswordRequired(R.string.field_required),
         PasswordToShort(R.string.password_to_short)
+    }
+
+    enum class Status {
+        Idle,
+        Busy,
+        Done
     }
 
 }

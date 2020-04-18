@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.core.view.isVisible
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_change_password_layout.*
 import net.frozendevelopment.frozenvault.R
 import net.frozendevelopment.frozenvault.extensions.applyText
@@ -38,7 +39,7 @@ class ChangePasswordFragment : StatefulBottomSheet<ChangePasswordState, ChangePa
         changePasswordSpinner.isVisible = state.status == ChangePasswordState.Status.IN_PROGRESS
 
         if (state.status == ChangePasswordState.Status.DONE) {
-            Toast.makeText(requireContext(), R.string.password_changed, Toast.LENGTH_SHORT).show()
+            Snackbar.make(requireView(), R.string.password_changed, Snackbar.LENGTH_SHORT).show()
             this.dismiss()
         }
     }

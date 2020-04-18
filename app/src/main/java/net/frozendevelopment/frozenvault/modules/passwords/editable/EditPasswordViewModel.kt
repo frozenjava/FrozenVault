@@ -122,12 +122,15 @@ class EditPasswordViewModel(
 
     fun save() = viewModelScope.launch(Dispatchers.IO) {
         if (!isValidToSave()) return@launch
+        state = state.copy(status = EditPasswordState.Status.Busy)
 
         if (state.workingMode is EditMode) {
             updateExisting((state.workingMode as EditMode).id)
         } else {
             createNew()
         }
+
+        state = state.copy(status = EditPasswordState.Status.Done)
     }
 
 }

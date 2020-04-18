@@ -6,12 +6,17 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.widget.SeekBar
+import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
+import androidx.navigation.fragment.findNavController
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_password_editable_layout.*
 import net.frozendevelopment.frozenvault.R
 import net.frozendevelopment.frozenvault.extensions.applyText
 import net.frozendevelopment.frozenvault.extensions.markRequired
 import net.frozendevelopment.frozenvault.extensions.onTextChanged
 import net.frozendevelopment.frozenvault.infrustructure.StatefulFragment
+import org.jetbrains.anko.alert
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 
@@ -83,6 +88,11 @@ class EditPasswordFragment : StatefulFragment<EditPasswordState, EditPasswordVie
         when(state.workingMode) {
             is EditMode -> activity?.title = "Edit"
             is CreateMode -> activity?.title = "Create"
+        }
+
+        if (state.status == EditPasswordState.Status.Done) {
+            Snackbar.make(requireView(), R.string.password_saved, Snackbar.LENGTH_SHORT).show()
+            findNavController().popBackStack()
         }
     }
 

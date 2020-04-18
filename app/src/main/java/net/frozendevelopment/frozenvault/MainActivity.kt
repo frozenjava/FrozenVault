@@ -2,6 +2,7 @@ package net.frozendevelopment.frozenvault
 
 import android.content.Context
 import android.os.Bundle
+import android.view.MenuItem
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
