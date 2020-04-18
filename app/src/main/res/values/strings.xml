@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">FrozenPasswords</string>
+    <string name="app_name">Frozen Vault</string>
     <string name="add_a_password">Add a Password</string>
     <string name="passwords_list_placeholder">You don\'t have any passwords yet.</string>
     <string name="service_name">Service Name</string>
@@ -14,9 +14,9 @@
     <string name="no_history_to_display">No history to display.</string>
     <string name="invalid_password">Invalid password. Try Again.</string>
     <string name="view_failed_login_attempts">View Failed Login Attempts</string>
-    <string name="view_login_history">View Login History</string>
-    <string name="login_history">Login History</string>
-    <string name="failed_login_attempts">Failed Login Attempts</string>
+    <string name="view_login_history">View Unlock History</string>
+    <string name="login_history">Unlock History</string>
+    <string name="failed_login_attempts">Failed Unlock Attempts</string>
     <string name="wipe_all_data">Wipe All Data</string>
     <string name="change_password">Change Password</string>
     <string name="recovery_keys">Recovery Keys</string>
@@ -33,6 +33,8 @@
     <string name="generate_random_password">Generate Random Password</string>
     <string name="numbers">Numbers</string>
     <string name="symbols">Symbols</string>
-    <string name="welcome_to_frozen_passwords">Welcome To Frozen Passwords</string>
+    <string name="welcome_to_frozen_passwords">Welcome To Frozen Vault</string>
     <string name="start_using">Start Using</string>
+    <string name="eight_char_min">Should be 8 characters at minimum.</string>
+    <string name="password_to_unlock">Password used to unlock the app.</string>
 </resources>

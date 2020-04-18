@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/passwordListFragment"
-        android:name="net.frozendevelopment.frozenpasswords.modules.passwords.list.PasswordListFragment"
+        android:name="net.frozendevelopment.frozenvault.modules.passwords.list.PasswordListFragment"
         android:label="Accounts">
         <action
             android:id="@+id/action_passwordListFragment_to_editPasswordFragment"
@@ -34,11 +34,11 @@
     </fragment>
     <fragment
         android:id="@+id/editPasswordFragment"
-        android:name="net.frozendevelopment.frozenpasswords.modules.passwords.editable.EditPasswordFragment"
+        android:name="net.frozendevelopment.frozenvault.modules.passwords.editable.EditPasswordFragment"
         android:label="Create" />
     <fragment
         android:id="@+id/unlockFragment"
-        android:name="net.frozendevelopment.frozenpasswords.modules.unlock.UnlockFragment"
+        android:name="net.frozendevelopment.frozenvault.modules.unlock.UnlockFragment"
         android:label="UnlockFragment">
         <action
             android:id="@+id/action_unlockFragment_to_passwordListFragment"
@@ -51,7 +51,7 @@
     </fragment>
     <fragment
         android:id="@+id/settingsFragment"
-        android:name="net.frozendevelopment.frozenpasswords.modules.settings.SettingsFragment"
+        android:name="net.frozendevelopment.frozenvault.modules.settings.SettingsFragment"
         android:label="Settings" >
         <action
             android:id="@+id/action_settingsFragment_to_changePasswordFragment"
@@ -59,11 +59,11 @@
     </fragment>
     <dialog
         android:id="@+id/changePasswordFragment"
-        android:name="net.frozendevelopment.frozenpasswords.modules.changepassword.ChangePasswordFragment"
+        android:name="net.frozendevelopment.frozenvault.modules.changepassword.ChangePasswordFragment"
         android:label="ChangePasswordFragment" />
     <fragment
         android:id="@+id/setupFragment"
-        android:name="net.frozendevelopment.frozenpasswords.modules.setup.SetupFragment"
+        android:name="net.frozendevelopment.frozenvault.modules.setup.SetupFragment"
         android:label="SetupFragment" >
         <action
             android:id="@+id/action_setupFragment_to_passwordListFragment"

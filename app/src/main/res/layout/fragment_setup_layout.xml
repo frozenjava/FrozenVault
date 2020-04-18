@@ -19,6 +19,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:passwordToggleEnabled="true"
+        app:helperText="@string/eight_char_min"
         android:layout_marginBottom="8dp">
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
