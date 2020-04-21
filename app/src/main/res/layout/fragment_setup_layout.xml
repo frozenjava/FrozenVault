@@ -1,50 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.motion.widget.MotionLayout
+    android:id="@+id/setupMotionLayout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:padding="24dp">
+    android:animateLayoutChanges="true"
+    android:background="@color/colorPrimaryDark"
+    app:layoutDescription="@xml/setup_motion_scene">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/setupIcon"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/setupTitle"
+        android:src="@drawable/frozenvault_icon"
+        android:cropToPadding="true"/>
 
     <com.google.android.material.textview.MaterialTextView
-        android:layout_width="match_parent"
+        android:id="@+id/setupTitle"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        style="@style/TextTitle"
         android:text="@string/welcome_to_frozen_passwords"
-        android:textAlignment="center"
-        android:layout_marginBottom="8dp"/>
+        style="@style/WhiteTextTitle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:textAlignment="center"/>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/setupPasswordLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:passwordToggleEnabled="true"
-        app:helperText="@string/eight_char_min"
-        android:layout_marginBottom="8dp">
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textPassword"
-            android:hint="@string/password"/>
-    </com.google.android.material.textfield.TextInputLayout>
+    <net.frozendevelopment.frozenvault.views.StationaryViewPager
+        android:id="@+id/setupViewPager"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/setupTitle"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/setupConfirmLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:passwordToggleEnabled="true"
-        android:layout_marginBottom="8dp">
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textPassword"
-            android:hint="@string/confirm_password"/>
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/setupButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/start_using"/>
-
-</androidx.appcompat.widget.LinearLayoutCompat>
+</androidx.constraintlayout.motion.widget.MotionLayout>

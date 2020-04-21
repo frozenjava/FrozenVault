@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MotionScene xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <Transition
+        app:constraintSetStart="@id/initialLoadStart"
+        app:constraintSetEnd="@id/initialLoadEnd"
+        app:duration="500"
+        app:motionInterpolator="easeIn"/>
+
+    <Transition
+        app:constraintSetStart="@id/initialLoadEnd"
+        app:constraintSetEnd="@id/opened"
+        app:duration="200"/>
+
+    <ConstraintSet android:id="@+id/initialLoadStart">
+        <Constraint
+            android:id="@+id/setupIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <Constraint
+            android:id="@+id/setupTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:alpha="0"/>
+
+        <Constraint
+            android:id="@+id/setupViewPager"
+            app:layout_constraintTop_toBottomOf="@id/setupTitle"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:alpha="0"/>
+
+    </ConstraintSet>
+
+    <ConstraintSet android:id="@+id/initialLoadEnd">
+        <Constraint
+            android:id="@+id/setupIcon"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            app:layout_constraintBottom_toTopOf="@id/setupTitle"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <Constraint
+            android:id="@+id/setupTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:alpha="1"/>
+
+        <Constraint
+            android:id="@+id/setupViewPager"
+            app:layout_constraintTop_toBottomOf="@id/setupTitle"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:alpha="0"/>
+    </ConstraintSet>
+
+    <ConstraintSet android:id="@+id/opened">
+        <Constraint
+            android:id="@+id/setupIcon"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <Constraint
+            android:id="@+id/setupTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@id/setupIcon"
+            app:layout_constraintBottom_toBottomOf="@id/setupIcon"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="24dp"/>
+
+        <Constraint
+            android:id="@+id/setupViewPager"
+            app:layout_constraintTop_toBottomOf="@id/setupTitle"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:alpha="1"/>
+    </ConstraintSet>
+
+</MotionScene>

@@ -1,4 +1,4 @@
-package net.frozendevelopment.frozenvault.modules.unlock
+package net.frozendevelopment.frozenvault.modules.setup.components.unlock
 
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
@@ -7,6 +7,7 @@ import kotlinx.coroutines.launch
 import net.frozendevelopment.frozenvault.R
 import net.frozendevelopment.frozenvault.AppSession
 import net.frozendevelopment.frozenvault.infrustructure.StatefulViewModel
+import net.frozendevelopment.frozenvault.modules.setup.SetupFragmentDirections
 
 class UnlockViewModel(private val appSession: AppSession) : StatefulViewModel<UnlockState>() {
 
@@ -27,7 +28,7 @@ class UnlockViewModel(private val appSession: AppSession) : StatefulViewModel<Un
 
         if (appSession.attemptUnlock(state.password!!)) {
             launch(Dispatchers.Main) {
-                navController.navigate(UnlockFragmentDirections.actionUnlockFragmentToPasswordListFragment())
+                navController.navigate(SetupFragmentDirections.actionSetupFragmentToPasswordListFragment())
             }
         } else {
             state = state.copy(errorMessageResource = R.string.invalid_password)

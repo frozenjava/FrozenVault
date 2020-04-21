@@ -9,7 +9,8 @@ import net.frozendevelopment.frozenvault.modules.passwords.editable.WorkingMode
 import net.frozendevelopment.frozenvault.modules.passwords.list.PasswordListViewModel
 import net.frozendevelopment.frozenvault.modules.settings.SettingsViewModel
 import net.frozendevelopment.frozenvault.modules.setup.SetupViewModel
-import net.frozendevelopment.frozenvault.modules.unlock.UnlockViewModel
+import net.frozendevelopment.frozenvault.modules.setup.components.register.RegistrationViewModel
+import net.frozendevelopment.frozenvault.modules.setup.components.unlock.UnlockViewModel
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
@@ -33,4 +34,5 @@ val viewModelsModule = module {
     viewModel { SettingsViewModel(get(), get(), get()) }
     viewModel { ChangePasswordViewModel(get(), get()) }
     viewModel { SetupViewModel(get()) }
+    viewModel { RegistrationViewModel(get()) }
 }

@@ -18,6 +18,12 @@
         <item name="android:textColor">?android:attr/textColorPrimary</item>
     </style>
 
+    <style name="WhiteTextTitle" parent="Widget.MaterialComponents.TextView">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
     <style name="TextInputStyle" parent="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSizeTopRight">80dp</item>

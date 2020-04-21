@@ -7,37 +7,38 @@
     android:padding="24dp">
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/unlockPasswordLayout"
+        android:id="@+id/registerPasswordLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:passwordToggleEnabled="true"
+        app:helperText="@string/eight_char_min"
+        android:layout_marginBottom="8dp">
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:hint="@string/password"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/registerConfirmLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:passwordToggleEnabled="true"
         android:layout_marginBottom="8dp">
-
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/unlockPassword"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:inputType="textPassword"
-            android:hint="@string/password"/>
-
+            android:hint="@string/confirm_password"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/unlockButton"
+        android:id="@+id/registerButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Unlock"
-        app:icon="@drawable/ic_unlock_black_24dp"
+        android:text="@string/start_using"
+        app:icon="@drawable/ic_done_black_24dp"
         app:iconGravity="textStart"/>
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/unlockForgotPassword"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/forgot_password"
-        android:textAlignment="center"
-        android:layout_marginTop="24dp"
-        android:layout_gravity="center"
-        style="@style/Widget.MaterialComponents.Button.TextButton"/>
 
 </androidx.appcompat.widget.LinearLayoutCompat>

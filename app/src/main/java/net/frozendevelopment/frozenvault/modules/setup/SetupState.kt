@@ -1,18 +1,15 @@
 package net.frozendevelopment.frozenvault.modules.setup
 
-import net.frozendevelopment.frozenvault.R
-
 data class SetupState(
-    val password: String? = null,
-    val confirm: String? = null,
-    val validationErrors: List<ValidationError> = listOf()
+    val setupStage: SetupStage = SetupStage.WELCOME
 ) {
 
-    enum class ValidationError(val errorStringResource: Int) {
-        PASSWORD_REQUIRED(R.string.field_required),
-        CONFIRM_REQUIRED(R.string.field_required),
-        MISMATCH(R.string.password_mismatch),
-        TO_SHORT(R.string.password_to_short)
+    enum class SetupStage {
+        WELCOME,
+        GET_STARTED,
+        INTRODUCTION,
+        REGISTER,
+        LOGIN
     }
 
 }

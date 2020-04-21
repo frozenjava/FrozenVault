@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_nav_graph"
-    app:startDestination="@id/unlockFragment">
+    app:startDestination="@id/setupFragment">
 
     <fragment
         android:id="@+id/passwordListFragment"
@@ -17,10 +17,10 @@
             app:popEnterAnim="@anim/slide_in_right"
             app:popExitAnim="@anim/down_to_bottom" />
         <action
-            android:id="@+id/action_passwordListFragment_to_unlockFragment"
-            app:destination="@id/unlockFragment"
-            app:enterAnim="@android:anim/slide_in_left"
-            app:exitAnim="@anim/slide_out_left"
+            android:id="@+id/action_passwordListFragment_to_setupFragment"
+            app:destination="@id/setupFragment"
+            app:enterAnim="@anim/fragment_open_enter"
+            app:exitAnim="@anim/fragment_close_exit"
             app:launchSingleTop="true"
             app:popUpTo="@id/main_nav_graph"
             app:popUpToInclusive="true" />
@@ -36,19 +36,6 @@
         android:id="@+id/editPasswordFragment"
         android:name="net.frozendevelopment.frozenvault.modules.passwords.editable.EditPasswordFragment"
         android:label="Create" />
-    <fragment
-        android:id="@+id/unlockFragment"
-        android:name="net.frozendevelopment.frozenvault.modules.unlock.UnlockFragment"
-        android:label="UnlockFragment">
-        <action
-            android:id="@+id/action_unlockFragment_to_passwordListFragment"
-            app:destination="@id/passwordListFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_right"
-            app:launchSingleTop="true"
-            app:popUpTo="@id/main_nav_graph"
-            app:popUpToInclusive="true" />
-    </fragment>
     <fragment
         android:id="@+id/settingsFragment"
         android:name="net.frozendevelopment.frozenvault.modules.settings.SettingsFragment"
@@ -67,6 +54,11 @@
         android:label="SetupFragment" >
         <action
             android:id="@+id/action_setupFragment_to_passwordListFragment"
-            app:destination="@id/passwordListFragment" />
+            app:destination="@id/passwordListFragment"
+            app:enterAnim="@anim/fragment_open_enter"
+            app:exitAnim="@anim/fragment_close_exit"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/main_nav_graph"
+            app:popUpToInclusive="true" />
     </fragment>
 </navigation>

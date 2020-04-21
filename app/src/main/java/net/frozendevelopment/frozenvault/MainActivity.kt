@@ -27,21 +27,17 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(mainToolbar)
-        val appBarConfiguration = AppBarConfiguration(setOf(R.id.unlockFragment, R.id.passwordListFragment, R.id.setupFragment))
+        val appBarConfiguration = AppBarConfiguration(setOf(R.id.passwordListFragment, R.id.setupFragment))
         mainToolbar.setupWithNavController(findNavController(R.id.mainFragmentContainer), appBarConfiguration)
         findNavController(R.id.mainFragmentContainer).addOnDestinationChangedListener { controller, destination, arguments ->
             dismissKeyboard()
-            mainToolbar.isVisible = destination.id !in  setOf(R.id.unlockFragment, R.id.setupFragment)
+            mainToolbar.isVisible = destination.id != R.id.setupFragment
         }
 
         lifecycleScope.launchWhenCreated {
             appThemeService.getThemeChangeEvents().collect {
                 AppCompatDelegate.setDefaultNightMode(it.theme)
             }
-        }
-
-        if (!appSession.accountExists) {
-            findNavController(R.id.mainFragmentContainer).navigate(R.id.setupFragment)
         }
     }
 

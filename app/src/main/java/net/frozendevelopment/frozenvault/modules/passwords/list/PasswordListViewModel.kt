@@ -52,7 +52,7 @@ class PasswordListViewModel(
 
     fun goToLockScreen(navController: NavController) {
         appSession.lockSession()
-        navController.navigate(PasswordListFragmentDirections.actionPasswordListFragmentToUnlockFragment())
+        navController.navigate(PasswordListFragmentDirections.actionPasswordListFragmentToSetupFragment())
     }
 
     fun goToAddPassword(navController: NavController) {

@@ -1,4 +1,4 @@
-package net.frozendevelopment.frozenvault.modules.unlock
+package net.frozendevelopment.frozenvault.modules.setup.components.unlock
 
 data class UnlockState(
     val password: String? = null,

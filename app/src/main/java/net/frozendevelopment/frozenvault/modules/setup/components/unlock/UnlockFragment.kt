@@ -1,4 +1,4 @@
-package net.frozendevelopment.frozenvault.modules.unlock
+package net.frozendevelopment.frozenvault.modules.setup.components.unlock
 
 import android.os.Bundle
 import android.view.View
