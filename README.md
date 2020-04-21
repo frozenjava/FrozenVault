@@ -1,4 +1,4 @@
-# Frozen Vault
+![Frozen Vault](assets/frozen-vault-project-banner.jpg)
 An open source password manager for Android.
 All data exists on the device and only on the device.
 
