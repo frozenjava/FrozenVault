@@ -19,11 +19,6 @@ class AppThemeService(private val sharedPreferences: SharedPreferences) {
             saveCurrentTheme()
         }
 
-    suspend fun changeTheme(newTheme: AppTheme) {
-        currentTheme = newTheme
-        themeChangeChannel.send(newTheme)
-    }
-
     fun getThemeChangeEvents(): Flow<AppTheme> = flow {
         for (theme in themeChangeChannel) {
             emit(theme)

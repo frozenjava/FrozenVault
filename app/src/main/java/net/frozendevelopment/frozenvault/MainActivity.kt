@@ -12,9 +12,15 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.flow.flowOn
 import net.frozendevelopment.frozenvault.infrustructure.AppThemeService
+import net.frozendevelopment.frozenvault.modules.passwords.list.PasswordListFragmentDirections
 import org.koin.android.ext.android.inject
+import java.util.concurrent.TimeUnit
 
 
 class MainActivity : AppCompatActivity() {
@@ -25,6 +31,8 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         AppCompatDelegate.setDefaultNightMode(appThemeService.loadDefaultTheme().theme)
         super.onCreate(savedInstanceState)
+        lifecycle.addObserver(appSession)
+
         setContentView(R.layout.activity_main)
         setSupportActionBar(mainToolbar)
         val appBarConfiguration = AppBarConfiguration(setOf(R.id.passwordListFragment, R.id.setupFragment))
@@ -38,6 +46,19 @@ class MainActivity : AppCompatActivity() {
             appThemeService.getThemeChangeEvents().collect {
                 AppCompatDelegate.setDefaultNightMode(it.theme)
             }
+        }
+
+        lifecycleScope.launchWhenStarted {
+            appSession.getSessionEvents()
+                .filter { it == AppSession.SessionEvent.LOCKED }
+                .distinctUntilChanged()
+                .flowOn(Dispatchers.Main)
+                .collect {
+                    with(findNavController(R.id.mainFragmentContainer)) {
+                        popBackStack(R.id.passwordListFragment, false)
+                        navigate(PasswordListFragmentDirections.actionPasswordListFragmentToSetupFragment())
+                    }
+                }
         }
     }
 

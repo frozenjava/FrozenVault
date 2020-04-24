@@ -41,26 +41,6 @@
 
     </com.google.android.material.button.MaterialButtonToggleGroup>
 
-    <androidx.appcompat.widget.AppCompatSeekBar
-        android:id="@+id/settingsAutoLockSeekBar"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/settingsThemeToggleGroup"
-        app:layout_constraintStart_toStartOf="@id/settingsThemeToggleGroup"
-        app:layout_constraintEnd_toEndOf="@id/settingsThemeToggleGroup"
-        android:progress="10"
-        android:layout_marginTop="24dp"/>
-
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/settingsAutoLockLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/settingsAutoLockSeekBar"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:text="Lock After 10 Minutes"
-        android:layout_marginBottom="8dp"/>
-
     <com.google.android.material.button.MaterialButton
         android:id="@+id/settingsBioLoginButton"
         android:layout_width="0dp"

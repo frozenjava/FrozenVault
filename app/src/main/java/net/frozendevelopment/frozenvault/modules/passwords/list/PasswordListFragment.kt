@@ -42,7 +42,7 @@ class PasswordListFragment : StatefulFragment<PasswordListState, PasswordListVie
         requireActivity().onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 requireContext().alert(R.string.lock_dialog, R.string.lock_confirmation_title) {
-                    positiveButton(R.string.positive_action) { viewModel.goToLockScreen(findNavController()) }
+                    positiveButton(R.string.positive_action) { viewModel.goToLockScreen() }
                     negativeButton(R.string.negative_action) { it.dismiss() }
                 }.show()
             }
@@ -65,7 +65,7 @@ class PasswordListFragment : StatefulFragment<PasswordListState, PasswordListVie
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.newPassword -> viewModel.goToAddPassword(findNavController())
-            R.id.lock -> viewModel.goToLockScreen(findNavController())
+            R.id.lock -> viewModel.goToLockScreen()
             R.id.account -> viewModel.goToSettings(findNavController())
         }
 

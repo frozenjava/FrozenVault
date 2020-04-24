@@ -1,7 +1,12 @@
 package net.frozendevelopment.frozenvault
 
 import android.content.SharedPreferences
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleObserver
+import androidx.lifecycle.OnLifecycleEvent
 import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import net.frozendevelopment.frozenvault.data.daos.UnlockEventDao
 import net.frozendevelopment.frozenvault.data.models.UnlockEventModel
 import net.frozendevelopment.frozenvault.extensions.createHash
@@ -11,7 +16,7 @@ import java.util.*
 class AppSession(
     private val unlockEventDao: UnlockEventDao,
     private val sharedPreferences: SharedPreferences
-) {
+): LifecycleObserver {
 
     private val hashedSecretKey: String = "SessionSecretHash"
     private val secretSaltKey: String = "SessionSecretSalt"
@@ -19,10 +24,22 @@ class AppSession(
     private val sessionEventChannel: Channel<SessionEvent> = Channel()
 
     var secret: String? = null
+        private set(value) {
+            field = value
+            if (!value.isNullOrBlank()) {
+                unlockedAt = System.currentTimeMillis()
+            } else {
+                unlockedAt = null
+            }
+        }
+
+    var unlockedAt: Long? = null
         private set
 
-    var unlockedAt: Long? = System.currentTimeMillis()
+    var appPausedAt: Long? = null
         private set
+
+    var sessionTimeoutMilliseconds: Long = 300000 // 5 minutes
 
     var hashedSecret: String? = null
         private set
@@ -51,7 +68,6 @@ class AppSession(
 
     fun lockSession() {
         this.secret = null
-        this.unlockedAt = null
         sessionEventChannel.offer(SessionEvent.LOCKED)
     }
 
@@ -64,6 +80,28 @@ class AppSession(
         sessionEventChannel.offer(SessionEvent.SECRET_UPDATED)
     }
 
+    fun getSessionEvents(): Flow<SessionEvent> = flow {
+        for (event in sessionEventChannel) {
+            emit(event)
+        }
+    }
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
+    fun onAppResumed() {
+        if (unlockedAt != null && appPausedAt != null) {
+            if (System.currentTimeMillis() - unlockedAt!! >= sessionTimeoutMilliseconds) {
+                lockSession()
+            }
+        }
+    }
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
+    fun onAppPaused() {
+        if (unlockedAt != null) {
+            appPausedAt = System.currentTimeMillis()
+        }
+    }
+
     suspend fun attemptUnlock(secret: String) : Boolean {
         return if ((secret+this.secretSalt).createHash() == this.hashedSecret) {
             this.unlockEventDao.insert(UnlockEventModel(
@@ -71,7 +109,6 @@ class AppSession(
                 UnlockEventModel.UnlockEventType.SUCCESS
             ))
             this.secret = secret
-            this.unlockedAt = System.currentTimeMillis()
             sessionEventChannel.offer(SessionEvent.UNLOCKED)
             true
         } else {

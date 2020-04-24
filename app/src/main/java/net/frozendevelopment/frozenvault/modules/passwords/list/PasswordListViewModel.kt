@@ -50,9 +50,8 @@ class PasswordListViewModel(
         dao.deleteById(item.id)
     }
 
-    fun goToLockScreen(navController: NavController) {
+    fun goToLockScreen() {
         appSession.lockSession()
-        navController.navigate(PasswordListFragmentDirections.actionPasswordListFragmentToSetupFragment())
     }
 
     fun goToAddPassword(navController: NavController) {
