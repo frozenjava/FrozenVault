@@ -26,6 +26,7 @@ import net.frozendevelopment.frozenvault.modules.history.HistoryDialogFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.*
 import org.jetbrains.anko.*
+import org.joda.time.DateTime
 
 class PasswordListFragment : StatefulFragment<PasswordListState, PasswordListViewModel>(R.layout.fragment_password_list_layout), PasswordListAdapter.PasswordItemDelegate {
 
@@ -124,14 +125,14 @@ class PasswordListFragment : StatefulFragment<PasswordListState, PasswordListVie
     private fun buildAccessHistoryDelegate(item: PasswordListState.PasswordCellModel) : HistoryDialogFragment.HistoryDelegate {
         return object: HistoryDialogFragment.HistoryDelegate {
             override fun getTitleStringResource(): Int = R.string.access_history
-            override fun getHistoryData(): Flow<List<Date>> = viewModel.getAccessHistory(item)
+            override fun getHistoryData(): Flow<List<DateTime>> = viewModel.getAccessHistory(item)
         }
     }
 
     private fun buildUpdateHistoryDelegate(item: PasswordListState.PasswordCellModel) : HistoryDialogFragment.HistoryDelegate {
         return object: HistoryDialogFragment.HistoryDelegate {
             override fun getTitleStringResource(): Int = R.string.update_history
-            override fun getHistoryData(): Flow<List<Date>> = viewModel.getUpdateHistory(item)
+            override fun getHistoryData(): Flow<List<DateTime>> = viewModel.getUpdateHistory(item)
         }
     }
 

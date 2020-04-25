@@ -7,12 +7,13 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import net.frozendevelopment.frozenvault.extensions.toHumanDateTime
+import org.joda.time.DateTime
 import java.util.*
 
 class HistoryAdapter(context: Context) : RecyclerView.Adapter<HistoryAdapter.CellViewHolder>() {
 
     private val inflater: LayoutInflater by lazy { LayoutInflater.from(context) }
-    private val historyItems: MutableList<Date> = mutableListOf()
+    private val historyItems: MutableList<DateTime> = mutableListOf()
 
     inner class CellViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         val textView: TextView = itemView.findViewById<TextView>(android.R.id.text1)
@@ -31,7 +32,7 @@ class HistoryAdapter(context: Context) : RecyclerView.Adapter<HistoryAdapter.Cel
         holder.textView.text = historyItems[position].toHumanDateTime()
     }
 
-    fun updateItems(newItems: List<Date>) {
+    fun updateItems(newItems: List<DateTime>) {
         historyItems.clear()
         historyItems.addAll(newItems)
         notifyDataSetChanged()

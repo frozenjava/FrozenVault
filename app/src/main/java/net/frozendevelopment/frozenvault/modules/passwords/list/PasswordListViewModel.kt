@@ -11,6 +11,8 @@ import kotlinx.coroutines.launch
 import net.frozendevelopment.frozenvault.AppSession
 import net.frozendevelopment.frozenvault.data.daos.ServicePasswordDao
 import net.frozendevelopment.frozenvault.infrustructure.StatefulViewModel
+import org.joda.time.DateTime
+import org.joda.time.DateTimeZone
 import java.util.*
 
 class PasswordListViewModel(
@@ -65,14 +67,14 @@ class PasswordListViewModel(
     fun updateAccessHistory(item: PasswordListState.PasswordCellModel) = viewModelScope.launch(Dispatchers.IO) {
         val current = dao.getItemById(item.id)
         val accessHistory = current.accessHistory.toMutableList()
-        accessHistory.add(Date())
+        accessHistory.add(DateTime.now(DateTimeZone.UTC))
         val updated = current.copy(accessHistory = accessHistory)
         updated.id = item.id
         dao.update(updated)
     }
 
-    fun getAccessHistory(item: PasswordListState.PasswordCellModel): Flow<List<Date>> = dao.getFlowById(item.id).map { it.accessHistory }.distinctUntilChanged()
+    fun getAccessHistory(item: PasswordListState.PasswordCellModel): Flow<List<DateTime>> = dao.getFlowById(item.id).map { it.accessHistory }.distinctUntilChanged()
 
-    fun getUpdateHistory(item: PasswordListState.PasswordCellModel): Flow<List<Date>> = dao.getFlowById(item.id).map { it.updateHistory }.distinctUntilChanged()
+    fun getUpdateHistory(item: PasswordListState.PasswordCellModel): Flow<List<DateTime>> = dao.getFlowById(item.id).map { it.updateHistory }.distinctUntilChanged()
 
 }

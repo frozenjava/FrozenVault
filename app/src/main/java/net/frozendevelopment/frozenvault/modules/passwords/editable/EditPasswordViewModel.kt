@@ -11,6 +11,8 @@ import net.frozendevelopment.frozenvault.data.models.ServicePasswordModel
 import net.frozendevelopment.frozenvault.extensions.decryptAES
 import net.frozendevelopment.frozenvault.extensions.encryptAES
 import net.frozendevelopment.frozenvault.infrustructure.StatefulViewModel
+import org.joda.time.DateTime
+import org.joda.time.DateTimeZone
 import java.security.SecureRandom
 import java.util.*
 
@@ -96,7 +98,7 @@ class EditPasswordViewModel(
             serviceName = state.serviceName!!,
             userName = state.username,
             password = state.password!!.encryptAES(appSession.secret!!),
-            created = Date(),
+            created = DateTime.now(DateTimeZone.UTC),
             updateHistory = listOf(),
             accessHistory = listOf()
         )
@@ -107,7 +109,7 @@ class EditPasswordViewModel(
     private suspend fun updateExisting(id: Int) {
         val current = dao.getItemById(id)
         val updateHistory = current.updateHistory.toMutableList()
-        updateHistory.add(Date())
+        updateHistory.add(DateTime.now(DateTimeZone.UTC))
 
         val updated = current.copy(
             serviceName = state.serviceName!!,

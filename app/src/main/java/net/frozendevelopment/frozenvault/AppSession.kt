@@ -11,6 +11,8 @@ import net.frozendevelopment.frozenvault.data.daos.UnlockEventDao
 import net.frozendevelopment.frozenvault.data.models.UnlockEventModel
 import net.frozendevelopment.frozenvault.extensions.createHash
 import net.frozendevelopment.frozenvault.utils.createSalt
+import org.joda.time.DateTime
+import org.joda.time.DateTimeZone
 import java.util.*
 
 class AppSession(
@@ -105,7 +107,7 @@ class AppSession(
     suspend fun attemptUnlock(secret: String) : Boolean {
         return if ((secret+this.secretSalt).createHash() == this.hashedSecret) {
             this.unlockEventDao.insert(UnlockEventModel(
-                Date(),
+                DateTime.now(DateTimeZone.UTC),
                 UnlockEventModel.UnlockEventType.SUCCESS
             ))
             this.secret = secret
@@ -113,7 +115,7 @@ class AppSession(
             true
         } else {
             this.unlockEventDao.insert(UnlockEventModel(
-                Date(),
+                DateTime.now(DateTimeZone.UTC),
                 UnlockEventModel.UnlockEventType.FAILED
             ))
             false

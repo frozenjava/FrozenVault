@@ -2,25 +2,25 @@ package net.frozendevelopment.frozenvault.data.converters
 
 import androidx.room.TypeConverter
 import com.google.gson.Gson
-import java.util.*
+import org.joda.time.DateTime
 
 class ListConverter {
 
     @TypeConverter
-    fun dateListToJson(value: List<Date>?): String {
+    fun dateTimeListToJson(value: List<DateTime>?): String {
         val dateConverter = DateConverter()
-        val mappedValues: List<Long>? = value?.mapNotNull { date ->
-            dateConverter.dateToTimestamp(date)
+        val mappedValues: List<Long>? = value?.mapNotNull { dateTime ->
+            dateConverter.datetimeToTimeStamp(dateTime)
         }
         return Gson().toJson(mappedValues)
     }
 
     @TypeConverter
-    fun jsonToDateList(value: String?): List<Date> {
+    fun jsonToDateTimeList(value: String?): List<DateTime> {
         val dateConverter = DateConverter()
         val objects = Gson().fromJson(value, Array<Long>::class.java) as Array<Long>
         return objects.mapNotNull { timestamp ->
-            dateConverter.fromTimestamp(timestamp)
+            dateConverter.timestampToDateTime(timestamp)
         }
     }
 

@@ -11,6 +11,7 @@ import net.frozendevelopment.frozenvault.data.models.UnlockEventModel
 import net.frozendevelopment.frozenvault.infrustructure.AppThemeService
 import net.frozendevelopment.frozenvault.infrustructure.StatefulViewModel
 import net.frozendevelopment.frozenvault.modules.history.HistoryDialogFragment
+import org.joda.time.DateTime
 import java.util.*
 
 class SettingsViewModel(
@@ -24,14 +25,14 @@ class SettingsViewModel(
     fun buildLoginHistoryDelegate() : HistoryDialogFragment.HistoryDelegate {
         return object: HistoryDialogFragment.HistoryDelegate {
             override fun getTitleStringResource(): Int = R.string.login_history
-            override fun getHistoryData(): Flow<List<Date>> = unlockEventDao.getEventDatesByType(UnlockEventModel.UnlockEventType.SUCCESS)
+            override fun getHistoryData(): Flow<List<DateTime>> = unlockEventDao.getEventDatesByType(UnlockEventModel.UnlockEventType.SUCCESS)
         }
     }
 
     fun buildFailedLoginHistoryDelegate() : HistoryDialogFragment.HistoryDelegate{
         return object: HistoryDialogFragment.HistoryDelegate {
             override fun getTitleStringResource(): Int = R.string.failed_login_attempts
-            override fun getHistoryData(): Flow<List<Date>> = unlockEventDao.getEventDatesByType(UnlockEventModel.UnlockEventType.FAILED)
+            override fun getHistoryData(): Flow<List<DateTime>> = unlockEventDao.getEventDatesByType(UnlockEventModel.UnlockEventType.FAILED)
         }
     }
 

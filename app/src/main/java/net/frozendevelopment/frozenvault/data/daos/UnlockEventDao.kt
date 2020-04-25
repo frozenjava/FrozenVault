@@ -5,15 +5,16 @@ import androidx.room.Insert
 import androidx.room.Query
 import kotlinx.coroutines.flow.Flow
 import net.frozendevelopment.frozenvault.data.models.UnlockEventModel
+import org.joda.time.DateTime
 import java.util.*
 
 @Dao
-interface UnlockEventDao {
+abstract class UnlockEventDao {
 
     @Insert
-    suspend fun insert(eventModel: UnlockEventModel)
+    abstract suspend fun insert(eventModel: UnlockEventModel)
 
-    @Query("SELECT eventDate FROM UnlockEvents WHERE eventType = :eventType")
-    fun getEventDatesByType(eventType: UnlockEventModel.UnlockEventType): Flow<List<Date>>
+    @Query("SELECT eventDate FROM UnlockEvents WHERE eventType = :eventType ORDER BY eventDate DESC")
+    abstract fun getEventDatesByType(eventType: UnlockEventModel.UnlockEventType): Flow<List<DateTime>>
 
 }

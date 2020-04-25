@@ -16,13 +16,14 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.launch
 import net.frozendevelopment.frozenvault.R
+import org.joda.time.DateTime
 import java.util.*
 
 class HistoryDialogFragment : BottomSheetDialogFragment() {
 
     interface HistoryDelegate {
         fun getTitleStringResource(): Int
-        fun getHistoryData(): Flow<List<Date>>
+        fun getHistoryData(): Flow<List<DateTime>>
     }
 
     var delegate: HistoryDelegate? = null

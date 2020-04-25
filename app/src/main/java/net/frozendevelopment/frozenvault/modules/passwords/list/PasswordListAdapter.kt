@@ -59,8 +59,8 @@ class PasswordListAdapter : RecyclerView.Adapter<PasswordListAdapter.CellViewHol
             accessHistoryButton.setOnClickListener { passwordItemDelegate.onElementClicked(PasswordItemDelegate.ClickedElement.AccessHistoryButton, item, position) }
             updateHistoryButton.setOnClickListener { passwordItemDelegate.onElementClicked(PasswordItemDelegate.ClickedElement.UpdateHistoryButton, item, position) }
             serviceName.text = item.service
-            created.text = "Created ${item.created.toHumanDate()}"
-            updated.text = "Updated: ${item.lastUpdated?.toHumanDate()}"
+            created.text = "Created ${item.created.toHumanDate() ?: "N/A"}"
+            updated.text = "Updated: ${item.lastUpdated?.toHumanDate() ?: "N/A"}"
             username.setText(item.username)
             password.setText(item.password)
             toggleGroup.isVisible = item.expanded

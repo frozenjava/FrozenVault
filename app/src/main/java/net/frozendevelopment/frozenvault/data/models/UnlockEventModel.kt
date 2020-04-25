@@ -2,11 +2,12 @@ package net.frozendevelopment.frozenvault.data.models
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import org.joda.time.DateTime
 import java.util.*
 
 @Entity(tableName =  "UnlockEvents")
 data class UnlockEventModel(
-    val eventDate: Date,
+    val eventDate: DateTime,
     val eventType: UnlockEventType
 ) {
     @PrimaryKey(autoGenerate = true) var id: Int = 0
