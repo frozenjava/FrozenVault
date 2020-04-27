@@ -7,6 +7,9 @@ import net.frozendevelopment.frozenvault.modules.changepassword.ChangePasswordVi
 import net.frozendevelopment.frozenvault.modules.passwords.editable.EditPasswordViewModel
 import net.frozendevelopment.frozenvault.modules.passwords.editable.WorkingMode
 import net.frozendevelopment.frozenvault.modules.passwords.list.PasswordListViewModel
+import net.frozendevelopment.frozenvault.modules.recovery.manage.RecoveryContainerViewModel
+import net.frozendevelopment.frozenvault.modules.recovery.manage.components.create.RecoveryCreateViewModel
+import net.frozendevelopment.frozenvault.modules.recovery.manage.components.list.RecoveryListViewModel
 import net.frozendevelopment.frozenvault.modules.settings.SettingsViewModel
 import net.frozendevelopment.frozenvault.modules.setup.SetupViewModel
 import net.frozendevelopment.frozenvault.modules.setup.components.register.RegistrationViewModel
@@ -19,6 +22,7 @@ import org.koin.dsl.module
 val databaseModule = module {
     factory { AppDatabase.getDatabase(androidContext()).servicePasswordDao() }
     factory { AppDatabase.getDatabase(androidContext()).unlockEventDao() }
+    factory { AppDatabase.getDatabase(androidContext()).recoveryKeyDao() }
     single { AppThemeService(get()) }
 }
 
@@ -30,9 +34,12 @@ val appModule = module {
 val viewModelsModule = module {
     viewModel { PasswordListViewModel(get(), get()) }
     viewModel { (workingMode: WorkingMode) -> EditPasswordViewModel(workingMode, get(), get()) }
-    viewModel { UnlockViewModel(get()) }
+    viewModel { UnlockViewModel(get(), get()) }
     viewModel { SettingsViewModel(get(), get(), get()) }
     viewModel { ChangePasswordViewModel(get(), get()) }
     viewModel { SetupViewModel(get()) }
     viewModel { RegistrationViewModel(get()) }
+    viewModel { RecoveryCreateViewModel(get(), get()) }
+    viewModel { RecoveryContainerViewModel() }
+    viewModel { RecoveryListViewModel(get()) }
 }

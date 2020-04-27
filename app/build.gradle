@@ -52,6 +52,9 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.6'
     implementation 'net.yslibrary.keyboardvisibilityevent:keyboardvisibilityevent:3.0.0-RC2'
     implementation 'joda-time:joda-time:2.10.6'
+    implementation 'me.dm7.barcodescanner:zxing:1.9.8'
+    implementation "androidx.camera:camera-core:${camerax_version}"
+    implementation "androidx.camera:camera-camera2:${camerax_version}"
     implementation "org.jetbrains.anko:anko-commons:$anko_version"
     implementation "org.jetbrains.anko:anko-design:$anko_version"
     implementation "androidx.room:room-runtime:$room_version"

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="24dp"
+    android:orientation="vertical">
+
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/TextTitle"
+        android:text="Identity Challenge"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/challengePasswordLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:hint="@string/current_password"
+        app:helperText="Your password to unlock Frozen Vault">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/challengeAuthButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/authenticate"
+        android:layout_marginTop="8dp"/>
+
+</androidx.appcompat.widget.LinearLayoutCompat>

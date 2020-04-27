@@ -2,6 +2,7 @@ package net.frozendevelopment.frozenvault.modules.setup.components.unlock
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import kotlinx.android.synthetic.main.fragment_unlock_layout.*
 import net.frozendevelopment.frozenvault.R
@@ -21,11 +22,18 @@ class UnlockFragment : StatefulFragment<UnlockState, UnlockViewModel>(R.layout.f
     }
 
     override fun applyStateToView(state: UnlockState) {
+        unlockForgotPassword.isVisible = state.hasRecoveryKeys
+
         unlockPassword.applyText(state.password)
+
         if (state.errorMessageResource == null) {
             unlockPasswordLayout.error = null
         } else {
             unlockPasswordLayout.error = requireContext().getString(state.errorMessageResource)
         }
+    }
+
+    private fun forgotPassword() {
+
     }
 }

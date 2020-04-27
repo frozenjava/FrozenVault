@@ -51,4 +51,14 @@
     <string name="lets_go">Lets Go</string>
     <string name="lets_get_started">Let\s Get Started!</string>
     <string name="unlock_you_vault">Unlock Your Vault</string>
+    <string name="new_recovery_key">New Recovery Key</string>
+    <string name="print">Print</string>
+    <string name="recovery_key_description">If you forget your password you can scan this QR code to recover your account. It is highly recommended to print and keep this in a safe place.</string>
+    <string name="authenticate">Authenticate</string>
+    <string name="create">Create</string>
+    <string name="no_recovery_keys_to_display">No Recovery Keys To Display</string>
+    <string name="delete">Delete</string>
+    <string name="unused">Unused Keys</string>
+    <string name="used">Used Keys</string>
+    <string name="all">All Keys</string>
 </resources>

@@ -15,18 +15,13 @@ import kotlinx.android.synthetic.main.password_list_cell.view.*
 import net.frozendevelopment.frozenvault.R
 import net.frozendevelopment.frozenvault.extensions.toHumanDate
 
-class PasswordListAdapter : RecyclerView.Adapter<PasswordListAdapter.CellViewHolder> {
+class PasswordListAdapter(
+    context: Context,
+    private val passwords: MutableList<PasswordListState.PasswordCellModel>,
+    private val passwordItemDelegate: PasswordItemDelegate
+) : RecyclerView.Adapter<PasswordListAdapter.CellViewHolder>() {
 
     private val inflater: LayoutInflater by lazy { LayoutInflater.from(context) }
-    private val context: Context
-    private val passwords: MutableList<PasswordListState.PasswordCellModel>
-    private val passwordItemDelegate: PasswordItemDelegate
-
-    constructor(context: Context, passwords: List<PasswordListState.PasswordCellModel>, itemDelegate: PasswordItemDelegate): super() {
-        this.context = context
-        this.passwords = passwords.toMutableList()
-        this.passwordItemDelegate = itemDelegate
-    }
 
     inner class CellViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         val serviceName: MaterialTextView = itemView.passwordCellService

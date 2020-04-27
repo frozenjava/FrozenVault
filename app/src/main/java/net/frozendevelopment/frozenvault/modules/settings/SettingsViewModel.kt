@@ -45,4 +45,8 @@ class SettingsViewModel(
         navController.navigate(SettingsFragmentDirections.actionSettingsFragmentToChangePasswordFragment())
     }
 
+    fun goToCreateRecoveryKey(navController: NavController) {
+        navController.navigate(SettingsFragmentDirections.actionSettingsFragmentToRecoveryContainerFragment())
+    }
+
 }

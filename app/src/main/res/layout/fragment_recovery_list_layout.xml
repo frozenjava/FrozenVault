@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/TextTitle"
+        android:text="@string/recovery_keys"
+        app:layout_constraintTop_toTopOf="@id/recoveryListCreateButton"
+        app:layout_constraintBottom_toBottomOf="@id/recoveryListCreateButton"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_margin="8dp"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/recoveryListCreateButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/create"
+        app:icon="@drawable/ic_recovery_key_24dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:layout_margin="8dp"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recoveryListRecycler"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_margin="8dp"
+        app:layout_constraintTop_toBottomOf="@id/recoveryListCreateButton"
+        app:layout_constraintBottom_toTopOf="@id/recoveryListFilterToggleGroup"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/recoveryListPlaceholder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@id/recoveryListRecycler"
+        app:layout_constraintBottom_toBottomOf="@id/recoveryListRecycler"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="@string/no_recovery_keys_to_display"
+        android:textStyle="italic"/>
+
+    <com.google.android.material.button.MaterialButtonToggleGroup
+        android:id="@+id/recoveryListFilterToggleGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:singleSelection="true"
+        android:layout_margin="8dp">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/recoveryListUnusedToggle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:text="@string/unused"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/recoveryListUsedToggle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:text="@string/used"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/recoveryListAllToggle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:text="@string/all" />
+
+    </com.google.android.material.button.MaterialButtonToggleGroup>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

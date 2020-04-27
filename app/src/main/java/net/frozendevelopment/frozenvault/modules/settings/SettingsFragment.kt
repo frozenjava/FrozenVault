@@ -19,6 +19,7 @@ class SettingsFragment : StatefulFragment<SettingsState, SettingsViewModel>(R.la
         settingsViewLoginHistoryButton.setOnClickListener { showLoginHistory(false) }
         settingsViewFailedLoginAttemptsButton.setOnClickListener { showLoginHistory(true) }
         settingsChangePasswordButton.setOnClickListener { viewModel.goToChangePassword(findNavController()) }
+        settingsRecoveryKeysButton.setOnClickListener { viewModel.goToCreateRecoveryKey(findNavController()) }
 
         settingsThemeToggleGroup.addOnButtonCheckedListener { group, checkedId, isChecked ->
             if (group.checkedButtonIds.size == 0 && !isChecked) {

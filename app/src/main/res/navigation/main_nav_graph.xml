@@ -43,6 +43,9 @@
         <action
             android:id="@+id/action_settingsFragment_to_changePasswordFragment"
             app:destination="@id/changePasswordFragment" />
+        <action
+            android:id="@+id/action_settingsFragment_to_recoveryContainerFragment"
+            app:destination="@id/recoveryContainerFragment" />
     </fragment>
     <dialog
         android:id="@+id/changePasswordFragment"
@@ -61,4 +64,8 @@
             app:popUpTo="@id/main_nav_graph"
             app:popUpToInclusive="true" />
     </fragment>
+    <dialog
+        android:id="@+id/recoveryContainerFragment"
+        android:name="net.frozendevelopment.frozenvault.modules.recovery.manage.RecoveryContainerFragment"
+        android:label="RecoveryContainerFragment" />
 </navigation>
