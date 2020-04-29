@@ -51,7 +51,6 @@ class MainActivity : AppCompatActivity() {
         lifecycleScope.launchWhenStarted {
             appSession.getSessionEvents()
                 .filter { it == AppSession.SessionEvent.LOCKED }
-                .distinctUntilChanged()
                 .flowOn(Dispatchers.Main)
                 .collect {
                     with(findNavController(R.id.mainFragmentContainer)) {
