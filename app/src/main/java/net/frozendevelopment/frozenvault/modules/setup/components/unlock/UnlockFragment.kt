@@ -9,6 +9,7 @@ import net.frozendevelopment.frozenvault.R
 import net.frozendevelopment.frozenvault.extensions.applyText
 import net.frozendevelopment.frozenvault.extensions.onTextChanged
 import net.frozendevelopment.frozenvault.infrustructure.StatefulFragment
+import net.frozendevelopment.frozenvault.modules.recovery.scanner.RecoveryScannerFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class UnlockFragment : StatefulFragment<UnlockState, UnlockViewModel>(R.layout.fragment_unlock_layout) {
@@ -19,6 +20,7 @@ class UnlockFragment : StatefulFragment<UnlockState, UnlockViewModel>(R.layout.f
         super.onViewCreated(view, savedInstanceState)
         unlockPassword.onTextChanged { password -> viewModel.state = viewModel.state.copy(password=password) }
         unlockButton.setOnClickListener { viewModel.attemptUnlock(findNavController()) }
+        unlockForgotPassword.setOnClickListener { forgotPassword() }
     }
 
     override fun applyStateToView(state: UnlockState) {
@@ -34,6 +36,7 @@ class UnlockFragment : StatefulFragment<UnlockState, UnlockViewModel>(R.layout.f
     }
 
     private fun forgotPassword() {
-
+        val recoveryDialog = RecoveryScannerFragment()
+        recoveryDialog.show(childFragmentManager, "recovery-scanner")
     }
 }

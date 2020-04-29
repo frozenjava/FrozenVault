@@ -2,7 +2,6 @@ package net.frozendevelopment.frozenvault
 
 import android.content.Context
 import android.os.Bundle
-import android.view.MenuItem
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
@@ -17,10 +16,9 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.flowOn
-import net.frozendevelopment.frozenvault.infrustructure.AppThemeService
+import net.frozendevelopment.frozenvault.services.AppThemeService
 import net.frozendevelopment.frozenvault.modules.passwords.list.PasswordListFragmentDirections
 import org.koin.android.ext.android.inject
-import java.util.concurrent.TimeUnit
 
 
 class MainActivity : AppCompatActivity() {

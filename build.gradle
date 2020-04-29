@@ -5,7 +5,7 @@ buildscript {
     ext.koin_version = '2.1.5'
     ext.room_version = '2.2.5'
     ext.anko_version = '0.10.8'
-    ext.camerax_version = '1.0.0-beta03'
+    ext.camerax_version = '1.0.0-alpha06'
     repositories {
         google()
         jcenter()

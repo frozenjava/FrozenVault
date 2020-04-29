@@ -8,11 +8,10 @@ import net.frozendevelopment.frozenvault.R
 import net.frozendevelopment.frozenvault.AppSession
 import net.frozendevelopment.frozenvault.data.daos.UnlockEventDao
 import net.frozendevelopment.frozenvault.data.models.UnlockEventModel
-import net.frozendevelopment.frozenvault.infrustructure.AppThemeService
+import net.frozendevelopment.frozenvault.services.AppThemeService
 import net.frozendevelopment.frozenvault.infrustructure.StatefulViewModel
 import net.frozendevelopment.frozenvault.modules.history.HistoryDialogFragment
 import org.joda.time.DateTime
-import java.util.*
 
 class SettingsViewModel(
     private val appSession: AppSession,

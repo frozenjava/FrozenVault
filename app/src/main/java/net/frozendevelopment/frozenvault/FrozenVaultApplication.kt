@@ -1,6 +1,7 @@
 package net.frozendevelopment.frozenvault
 
 import android.app.Application
+import com.google.firebase.FirebaseApp
 import net.frozendevelopment.frozenvault.infrustructure.appModule
 import net.frozendevelopment.frozenvault.infrustructure.databaseModule
 import net.frozendevelopment.frozenvault.infrustructure.viewModelsModule
@@ -11,6 +12,7 @@ class FrozenVaultApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
+        FirebaseApp.initializeApp(applicationContext)
         setupKoin()
     }
 

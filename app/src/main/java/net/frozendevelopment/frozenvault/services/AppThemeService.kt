@@ -1,4 +1,4 @@
-package net.frozendevelopment.frozenvault.infrustructure
+package net.frozendevelopment.frozenvault.services
 
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatDelegate
@@ -12,7 +12,8 @@ class AppThemeService(private val sharedPreferences: SharedPreferences) {
 
     private val themeChangeChannel: Channel<AppTheme> = Channel()
 
-    var currentTheme: AppTheme = AppTheme.SYSTEM
+    var currentTheme: AppTheme =
+        AppTheme.SYSTEM
         set(value) {
             field = value
             themeChangeChannel.offer(value)

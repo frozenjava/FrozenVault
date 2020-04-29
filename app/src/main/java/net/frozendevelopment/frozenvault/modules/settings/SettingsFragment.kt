@@ -5,7 +5,7 @@ import android.view.View
 import androidx.navigation.fragment.findNavController
 import kotlinx.android.synthetic.main.fragment_settings_layout.*
 import net.frozendevelopment.frozenvault.R
-import net.frozendevelopment.frozenvault.infrustructure.AppThemeService
+import net.frozendevelopment.frozenvault.services.AppThemeService
 import net.frozendevelopment.frozenvault.infrustructure.StatefulFragment
 import net.frozendevelopment.frozenvault.modules.history.HistoryDialogFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel

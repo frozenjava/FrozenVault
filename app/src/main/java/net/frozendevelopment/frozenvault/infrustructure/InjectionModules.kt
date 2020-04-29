@@ -14,6 +14,7 @@ import net.frozendevelopment.frozenvault.modules.settings.SettingsViewModel
 import net.frozendevelopment.frozenvault.modules.setup.SetupViewModel
 import net.frozendevelopment.frozenvault.modules.setup.components.register.RegistrationViewModel
 import net.frozendevelopment.frozenvault.modules.setup.components.unlock.UnlockViewModel
+import net.frozendevelopment.frozenvault.services.AppThemeService
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
