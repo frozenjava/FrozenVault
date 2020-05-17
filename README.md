@@ -1,6 +1,10 @@
 ![Frozen Vault](assets/frozen-vault-project-banner.jpg)
-An open source password manager for Android.
-All data exists on the device and only on the device.
+
+## Screenshots
+![Screenshots](assets/screenshots.png)
+
+FrozenVault is a fully free and opensource password manager for Android.
+All data is AES encrypted and stored locally on the device so no data will ever leave your device!
 
 ## Features
 * Store passwords encrypted with AES
@@ -11,10 +15,8 @@ All data exists on the device and only on the device.
 * Session timeout / auto lock
 * Dark & Light modes
 
-## Screenshots
-![Screenshots](assets/screenshots.png)
+## Contributing
+If you want to contribute checkout the issues to find a good place to start.
 
-## Unimplemented Features
-* Recovery Keys
-* Biometric unlock
-* Wipe all data
+Once you've made your change just create a pull request.
+Please make your contributions in Kotlin and write unit tests for your changes.
