@@ -8,9 +8,16 @@ All data exists on the device and only on the device.
 * View password access and update history
 * View unlock history (failed and successful attempts)
 * Change password
+* Session timeout / auto lock
+* Dark & Light modes
+
+## Screenshots
+![Setup Screen](assets/setup.png)
+![Accounts Screen](assets/accounts.png)
+![Create Screen](assets/create.png)
+![Settings Screen](assets/settings.png)
 
 ## Unimplemented Features
 * Recovery Keys
 * Biometric unlock
-* Session timeout / auto lock
 * Wipe all data
