@@ -12,10 +12,7 @@ All data exists on the device and only on the device.
 * Dark & Light modes
 
 ## Screenshots
-![Setup Screen](assets/setup.png)
-![Accounts Screen](assets/accounts.png)
-![Create Screen](assets/create.png)
-![Settings Screen](assets/settings.png)
+![Screenshots](assets/screenshots.png)
 
 ## Unimplemented Features
 * Recovery Keys
