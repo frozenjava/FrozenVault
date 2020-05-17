@@ -11,6 +11,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import kotlinx.android.synthetic.main.fragment_register_layout.*
 import kotlinx.android.synthetic.main.fragment_setup_layout.*
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import net.frozendevelopment.frozenvault.R
@@ -25,6 +26,7 @@ import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.lang.ref.WeakReference
 
+@ExperimentalCoroutinesApi
 class SetupFragment : StatefulFragment<SetupState, SetupViewModel>(R.layout.fragment_setup_layout) {
 
     override val viewModel: SetupViewModel by viewModel()
@@ -46,7 +48,7 @@ class SetupFragment : StatefulFragment<SetupState, SetupViewModel>(R.layout.frag
         setupViewPager.adapter = pageAdapter
 
         if (viewModel.currentStage == SetupState.SetupStage.LOGIN) {
-            setupViewPager.currentItem = 2
+            setupViewPager.currentItem = getFragmentIndex(UnlockFragment::class.java)
         }
 
         super.onViewCreated(view, savedInstanceState)
@@ -78,13 +80,13 @@ class SetupFragment : StatefulFragment<SetupState, SetupViewModel>(R.layout.frag
                 setupTitle.textAlignment = TextView.TEXT_ALIGNMENT_VIEW_END
             }
             SetupState.SetupStage.INTRODUCTION -> {
-                setupViewPager.setCurrentItem(0, true)
+                setupViewPager.setCurrentItem(getFragmentIndex(GetStartedFragment::class.java), true)
             }
             SetupState.SetupStage.REGISTER -> {
-                setupViewPager.setCurrentItem(1, true)
+                setupViewPager.setCurrentItem(getFragmentIndex(RegistrationFragment::class.java), true)
             }
             SetupState.SetupStage.LOGIN -> {
-                setupViewPager.currentItem = 2
+                setupViewPager.currentItem = getFragmentIndex(UnlockFragment::class.java)
                 setupTitle.setText(R.string.unlock_you_vault)
                 setupMotionLayout.setTransition(R.id.initialLoadStart, R.id.opened)
                 setupMotionLayout.setTransitionDuration(500)
@@ -96,6 +98,10 @@ class SetupFragment : StatefulFragment<SetupState, SetupViewModel>(R.layout.frag
 
     private fun getStartedCallback() {
         viewModel.goToNextStage()
+    }
+
+    private fun <TFragment> getFragmentIndex(frag: Class<TFragment>) : Int {
+        return fragments.indexOfFirst { it::class.java == frag }
     }
 
     private inner class SetupAdapter(fragmentManager: FragmentManager) : FragmentPagerAdapter(fragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {

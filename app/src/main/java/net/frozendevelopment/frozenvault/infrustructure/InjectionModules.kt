@@ -1,6 +1,7 @@
 package net.frozendevelopment.frozenvault.infrustructure
 
 import android.content.Context
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import net.frozendevelopment.frozenvault.AppSession
 import net.frozendevelopment.frozenvault.data.AppDatabase
 import net.frozendevelopment.frozenvault.modules.changepassword.ChangePasswordViewModel
@@ -27,11 +28,12 @@ val appModule = module {
     single { AppSession(get(), get()) }
 }
 
+@ExperimentalCoroutinesApi
 val viewModelsModule = module {
     viewModel { PasswordListViewModel(get(), get()) }
     viewModel { (workingMode: WorkingMode) -> EditPasswordViewModel(workingMode, get(), get()) }
     viewModel { UnlockViewModel(get()) }
-    viewModel { SettingsViewModel(get(), get(), get()) }
+    viewModel { SettingsViewModel(get(), get()) }
     viewModel { ChangePasswordViewModel(get(), get()) }
     viewModel { SetupViewModel(get()) }
     viewModel { RegistrationViewModel(get()) }

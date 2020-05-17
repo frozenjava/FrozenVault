@@ -10,14 +10,14 @@ import androidx.lifecycle.lifecycleScope
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import kotlinx.coroutines.flow.asFlow
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.distinctUntilChanged
 import net.frozendevelopment.frozenvault.R
 import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent
 import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEventListener
 
 
+@ExperimentalCoroutinesApi
 abstract class StatefulBottomSheet<TState, TViewModel: StatefulViewModel<TState>>(private val layoutId: Int) : BottomSheetDialogFragment() {
 
     protected abstract val viewModel: TViewModel
@@ -36,9 +36,7 @@ abstract class StatefulBottomSheet<TState, TViewModel: StatefulViewModel<TState>
     ): View? {
         viewLifecycleOwner.lifecycle.addObserver(viewModel)
         viewLifecycleOwner.lifecycleScope.launchWhenCreated {
-            viewModel.stateChannel.asFlow()
-                .distinctUntilChanged()
-                .collect { applyStateToView(it) }
+            viewModel.stateFlow.collect { applyStateToView(it) }
         }
 
         KeyboardVisibilityEvent.setEventListener(requireActivity(), viewLifecycleOwner, object : KeyboardVisibilityEventListener {

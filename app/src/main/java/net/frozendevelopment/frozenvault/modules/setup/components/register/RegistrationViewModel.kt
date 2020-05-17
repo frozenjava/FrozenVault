@@ -3,11 +3,13 @@ package net.frozendevelopment.frozenvault.modules.setup.components.register
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.launch
 import net.frozendevelopment.frozenvault.AppSession
 import net.frozendevelopment.frozenvault.infrustructure.StatefulViewModel
 import net.frozendevelopment.frozenvault.modules.setup.SetupFragmentDirections
 
+@ExperimentalCoroutinesApi
 class RegistrationViewModel(private val appSession: AppSession) : StatefulViewModel<RegistrationState>() {
 
     override fun getDefaultState(): RegistrationState = RegistrationState()

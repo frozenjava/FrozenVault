@@ -3,12 +3,14 @@ package net.frozendevelopment.frozenvault.modules.setup.components.unlock
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.launch
 import net.frozendevelopment.frozenvault.R
 import net.frozendevelopment.frozenvault.AppSession
 import net.frozendevelopment.frozenvault.infrustructure.StatefulViewModel
 import net.frozendevelopment.frozenvault.modules.setup.SetupFragmentDirections
 
+@ExperimentalCoroutinesApi
 class UnlockViewModel(private val appSession: AppSession) : StatefulViewModel<UnlockState>() {
 
     override fun getDefaultState(): UnlockState = UnlockState()

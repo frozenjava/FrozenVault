@@ -11,6 +11,7 @@ import androidx.activity.OnBackPressedCallback
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_password_editable_layout.*
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import net.frozendevelopment.frozenvault.R
 import net.frozendevelopment.frozenvault.extensions.applyText
 import net.frozendevelopment.frozenvault.extensions.markRequired
@@ -20,6 +21,7 @@ import org.jetbrains.anko.alert
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 
+@ExperimentalCoroutinesApi
 class EditPasswordFragment : StatefulFragment<EditPasswordState, EditPasswordViewModel>(R.layout.fragment_password_editable_layout) {
 
     override val viewModel: EditPasswordViewModel by viewModel {

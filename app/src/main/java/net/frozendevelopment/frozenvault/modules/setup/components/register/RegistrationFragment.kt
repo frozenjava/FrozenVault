@@ -4,12 +4,14 @@ import android.os.Bundle
 import android.view.View
 import androidx.navigation.fragment.findNavController
 import kotlinx.android.synthetic.main.fragment_register_layout.*
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import net.frozendevelopment.frozenvault.R
 import net.frozendevelopment.frozenvault.extensions.applyText
 import net.frozendevelopment.frozenvault.extensions.onTextChanged
 import net.frozendevelopment.frozenvault.infrustructure.StatefulFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
+@ExperimentalCoroutinesApi
 class RegistrationFragment : StatefulFragment<RegistrationState, RegistrationViewModel>(R.layout.fragment_register_layout) {
 
     override val viewModel: RegistrationViewModel by viewModel()

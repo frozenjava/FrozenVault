@@ -4,6 +4,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.OnLifecycleEvent
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.launch
 import net.frozendevelopment.frozenvault.AppSession
 import net.frozendevelopment.frozenvault.data.daos.ServicePasswordDao
@@ -16,6 +17,7 @@ import org.joda.time.DateTimeZone
 import java.security.SecureRandom
 import java.util.*
 
+@ExperimentalCoroutinesApi
 class EditPasswordViewModel(
     private var workingMode: WorkingMode,
     private val dao: ServicePasswordDao,

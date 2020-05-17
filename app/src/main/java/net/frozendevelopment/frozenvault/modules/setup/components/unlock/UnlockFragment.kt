@@ -4,12 +4,14 @@ import android.os.Bundle
 import android.view.View
 import androidx.navigation.fragment.findNavController
 import kotlinx.android.synthetic.main.fragment_unlock_layout.*
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import net.frozendevelopment.frozenvault.R
 import net.frozendevelopment.frozenvault.extensions.applyText
 import net.frozendevelopment.frozenvault.extensions.onTextChanged
 import net.frozendevelopment.frozenvault.infrustructure.StatefulFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
+@ExperimentalCoroutinesApi
 class UnlockFragment : StatefulFragment<UnlockState, UnlockViewModel>(R.layout.fragment_unlock_layout) {
 
     override val viewModel: UnlockViewModel by viewModel()

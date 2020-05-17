@@ -6,6 +6,7 @@ import android.widget.Toast
 import androidx.core.view.isVisible
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_change_password_layout.*
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import net.frozendevelopment.frozenvault.R
 import net.frozendevelopment.frozenvault.extensions.applyText
 import net.frozendevelopment.frozenvault.extensions.markRequired
@@ -14,6 +15,7 @@ import net.frozendevelopment.frozenvault.infrustructure.StatefulBottomSheet
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
+@ExperimentalCoroutinesApi
 class ChangePasswordFragment : StatefulBottomSheet<ChangePasswordState, ChangePasswordViewModel>(R.layout.fragment_change_password_layout) {
 
     override val viewModel: ChangePasswordViewModel by viewModel()

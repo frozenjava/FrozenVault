@@ -2,6 +2,7 @@ package net.frozendevelopment.frozenvault.modules.changepassword
 
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.launch
 import net.frozendevelopment.frozenvault.AppSession
 import net.frozendevelopment.frozenvault.data.daos.ServicePasswordDao
@@ -10,6 +11,7 @@ import net.frozendevelopment.frozenvault.extensions.encryptAES
 import net.frozendevelopment.frozenvault.extensions.parallelProcess
 import net.frozendevelopment.frozenvault.infrustructure.StatefulViewModel
 
+@ExperimentalCoroutinesApi
 class ChangePasswordViewModel(
     private val appSession: AppSession,
     private val passwordDao: ServicePasswordDao

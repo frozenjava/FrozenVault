@@ -2,6 +2,7 @@ package net.frozendevelopment.frozenvault.modules.settings
 
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import net.frozendevelopment.frozenvault.R
@@ -14,8 +15,8 @@ import net.frozendevelopment.frozenvault.modules.history.HistoryDialogFragment
 import org.joda.time.DateTime
 import java.util.*
 
+@ExperimentalCoroutinesApi
 class SettingsViewModel(
-    private val appSession: AppSession,
     private val unlockEventDao: UnlockEventDao,
     private val themeService: AppThemeService
 ) : StatefulViewModel<SettingsState>() {

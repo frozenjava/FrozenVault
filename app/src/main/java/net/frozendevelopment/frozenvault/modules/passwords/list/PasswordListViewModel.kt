@@ -3,6 +3,7 @@ package net.frozendevelopment.frozenvault.modules.passwords.list
 import androidx.lifecycle.*
 import androidx.navigation.NavController
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.distinctUntilChanged
@@ -15,6 +16,7 @@ import org.joda.time.DateTime
 import org.joda.time.DateTimeZone
 import java.util.*
 
+@ExperimentalCoroutinesApi
 class PasswordListViewModel(
     private val dao: ServicePasswordDao,
     private val appSession: AppSession

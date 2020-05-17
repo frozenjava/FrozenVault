@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_password_list_layout.*
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import net.frozendevelopment.frozenvault.R
@@ -28,6 +29,7 @@ import java.util.*
 import org.jetbrains.anko.*
 import org.joda.time.DateTime
 
+@ExperimentalCoroutinesApi
 class PasswordListFragment : StatefulFragment<PasswordListState, PasswordListViewModel>(R.layout.fragment_password_list_layout), PasswordListAdapter.PasswordItemDelegate {
 
     override val viewModel: PasswordListViewModel by viewModel()
