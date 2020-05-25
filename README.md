@@ -1,5 +1,6 @@
-[![Github license](https://img.shields.io/github/license/Naereen/StrapDown.js.svg)](LICENSE)
 ![Frozen Vault](assets/frozen-vault-project-banner.jpg)
+
+[![Github license](https://img.shields.io/github/license/Naereen/StrapDown.js.svg)](LICENSE)
 
 FrozenVault is a fully free and opensource password manager for Android.
 All data is AES encrypted and stored locally on the device so no data will ever leave your device!
