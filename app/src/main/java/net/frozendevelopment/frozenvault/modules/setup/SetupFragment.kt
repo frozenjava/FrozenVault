@@ -68,10 +68,13 @@ class SetupFragment : StatefulFragment<SetupState, SetupViewModel>(R.layout.frag
     }
 
     private fun transitionToNext(stage: SetupState.SetupStage) = viewLifecycleOwner.lifecycleScope.launch {
-        delay(800)
         when(stage) {
-            SetupState.SetupStage.WELCOME -> setupMotionLayout.transitionToEnd()
+            SetupState.SetupStage.WELCOME -> {
+                delay(800)
+                setupMotionLayout.transitionToEnd()
+            }
             SetupState.SetupStage.GET_STARTED -> {
+                delay(800)
                 setupTitle.transitionText(requireContext().getString(R.string.lets_get_started))
                 delay(1600)
                 setupMotionLayout.setTransition(R.id.initialLoadEnd, R.id.opened)
