@@ -8,7 +8,7 @@ data class EditPasswordState(
     val password: String? = null,
     val includeSymbols: Boolean = true,
     val includeNumbers: Boolean = true,
-    val randomLength: Int = 50,
+    val randomLength: Int = 10,
     val errors: List<EditStateError> = listOf(),
     val workingMode: WorkingMode,
     val status: Status = Status.Idle
