@@ -1,9 +1,11 @@
 package net.frozendevelopment.frozenvault.infrustructure
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.FrameLayout
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.lifecycleScope
@@ -50,6 +52,13 @@ abstract class StatefulBottomSheet<TState, TViewModel: StatefulViewModel<TState>
         })
 
         return inflater.inflate(this.layoutId, container, false)
+    }
+
+    protected fun dismissKeyboard() {
+        val imm = requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager?
+        if(imm?.isAcceptingText == true) { // verify if the soft keyboard is open
+            imm.hideSoftInputFromWindow(requireActivity().currentFocus?.windowToken, 0)
+        }
     }
 
     protected open fun onKeyboardOpened() {

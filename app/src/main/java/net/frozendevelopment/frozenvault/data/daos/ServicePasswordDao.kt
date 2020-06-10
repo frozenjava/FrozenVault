@@ -13,17 +13,17 @@ interface ServicePasswordDao {
     fun getAllItems(): List<ServicePasswordModel>
 
     @Query("SELECT * FROM ServicePasswords WHERE id = :id")
-    fun getFlowById(id: Int): Flow<ServicePasswordModel>
+    fun getFlowById(id: Long): Flow<ServicePasswordModel>
 
     @Query("SELECT * FROM ServicePasswords WHERE id = :id")
-    fun getItemById(id: Int): ServicePasswordModel
+    fun getItemById(id: Long): ServicePasswordModel
 
     @Insert
-    suspend fun insert(servicePasswordModel: ServicePasswordModel)
+    suspend fun insert(servicePasswordModel: ServicePasswordModel): Long
 
     @Update
     suspend fun update(servicePasswordModel: ServicePasswordModel)
 
     @Query("DELETE FROM ServicePasswords WHERE id = :id")
-    suspend fun deleteById(id: Int)
+    suspend fun deleteById(id: Long)
 }

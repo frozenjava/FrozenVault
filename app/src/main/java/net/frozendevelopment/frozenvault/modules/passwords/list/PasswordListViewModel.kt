@@ -62,6 +62,11 @@ class PasswordListViewModel(
         navController.navigate(PasswordListFragmentDirections.actionPasswordListFragmentToEditPasswordFragment())
     }
 
+    fun goToSecurityQuestions(item: PasswordListState.PasswordCellModel, navController: NavController) {
+        updateAccessHistory(item)
+        navController.navigate(PasswordListFragmentDirections.actionPasswordListFragmentToSecurityQuestionListFragment(item.id))
+    }
+
     fun goToSettings(navController: NavController) {
         navController.navigate(PasswordListFragmentDirections.actionPasswordListFragmentToSettingsFragment())
     }

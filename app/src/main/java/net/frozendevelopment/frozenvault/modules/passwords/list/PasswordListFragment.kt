@@ -121,6 +121,9 @@ class PasswordListFragment : StatefulFragment<PasswordListState, PasswordListVie
             PasswordListAdapter.PasswordItemDelegate.ClickedElement.AccessHistoryButton -> {
                 showHistoryDialog(buildAccessHistoryDelegate(item))
             }
+            PasswordListAdapter.PasswordItemDelegate.ClickedElement.SecurityQuestionsButton -> {
+                viewModel.goToSecurityQuestions(item, findNavController())
+            }
         }
     }
 

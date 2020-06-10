@@ -1,91 +1,100 @@
 package net.frozendevelopment.frozenvault.modules.passwords.editable
 
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
-import android.widget.SeekBar
-import android.widget.Toast
-import androidx.activity.OnBackPressedCallback
+import androidx.core.view.isVisible
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_password_editable_layout.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.map
 import net.frozendevelopment.frozenvault.R
 import net.frozendevelopment.frozenvault.extensions.applyText
+import net.frozendevelopment.frozenvault.extensions.dismissKeyboard
 import net.frozendevelopment.frozenvault.extensions.markRequired
 import net.frozendevelopment.frozenvault.extensions.onTextChanged
 import net.frozendevelopment.frozenvault.infrustructure.StatefulFragment
+import net.frozendevelopment.frozenvault.modules.passwords.securityQuestions.form.SecurityQuestionFormDialog
+import net.frozendevelopment.frozenvault.modules.passwords.securityQuestions.SecurityQuestionRecyclerAdapter
+import net.frozendevelopment.frozenvault.modules.passwords.securityQuestions.SecurityQuestionState
 import org.jetbrains.anko.alert
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 
 @ExperimentalCoroutinesApi
-class EditPasswordFragment : StatefulFragment<EditPasswordState, EditPasswordViewModel>(R.layout.fragment_password_editable_layout) {
+class EditPasswordFragment : StatefulFragment<EditPasswordState, EditPasswordViewModel>(R.layout.fragment_password_editable_layout, R.menu.edit_menu) {
 
     override val viewModel: EditPasswordViewModel by viewModel {
-        val passwordId = arguments?.getInt("passwordId", -1) ?: -1
-        val workingMode = if (passwordId != -1) EditMode(passwordId) else CreateMode
+        val passwordId: Long = arguments?.getLong("passwordId", -1L) ?: -1L
+        val workingMode = if (passwordId != -1L) EditMode(passwordId) else CreateMode
         parametersOf(workingMode)
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setHasOptionsMenu(true)
+    private val securityQuestionAdapter: SecurityQuestionRecyclerAdapter by lazy {
+        SecurityQuestionRecyclerAdapter(
+            requireContext(),
+            true,
+            viewModel.state.securityQuestions.toMutableList(),
+            { _, item -> showSecurityQuestionForm(item, viewModel::addOrUpdateSecurityQuestion) },
+            { _, item ->
+                requireContext().alert(R.string.delete_dialog, R.string.delete_confirmation_title) {
+                    positiveButton(R.string.positive_action) { viewModel.deleteSecurityQuestion(item) }
+                    negativeButton(R.string.negative_action) { it.dismiss() }
+                }.show()
+            }
+        )
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         editableServiceLayout.markRequired()
         editablePasswordLayout.markRequired()
-        editableServiceName.onTextChanged { viewModel.state = viewModel.state.copy(serviceName = it) }
-        editableUsername.onTextChanged { viewModel.state = viewModel.state.copy(username = it) }
-        editablePassword.onTextChanged { viewModel.state = viewModel.state.copy(password = it) }
+        editableServiceName.onTextChanged { viewModel.formState = viewModel.formState.copy(serviceName = it) }
+        editableUsername.onTextChanged { viewModel.formState = viewModel.formState.copy(username = it) }
+        editablePassword.onTextChanged { viewModel.formState = viewModel.formState.copy(password = it) }
 
-        editableRandomPasswordButton.setOnClickListener { viewModel.generateRandom() }
-        editableIncludeSymbols.setOnCheckedChangeListener { buttonView, isChecked ->
-            viewModel.state = viewModel.state.copy(includeSymbols = isChecked)
-        }
-        editableIncludeNumbers.setOnCheckedChangeListener { buttonView, isChecked ->
-            viewModel.state = viewModel.state.copy(includeNumbers = isChecked)
+        editableSecurityQuestionRecycler.apply {
+            adapter = securityQuestionAdapter
+            layoutManager = LinearLayoutManager(requireContext())
+            addItemDecoration(DividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL))
         }
 
-        editableCharLength.setOnSeekBarChangeListener(object: SeekBar.OnSeekBarChangeListener {
-            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                if (progress < 8) {
-                    seekBar?.progress = 8
-                    return
+        editableRandomPasswordButton.setOnClickListener {
+            val dialog =
+                PasswordGeneratorDialog(
+                    viewModel.generatorState
+                ) {
+                    viewModel.generatorState = it
+                    viewModel.generateRandom()
                 }
-                editableCharLengthLabel.text = "$progress Characters"
-            }
+            dialog.show(childFragmentManager, "generator_dialog")
+        }
 
-            override fun onStartTrackingTouch(seekBar: SeekBar?) {
-            }
+        editableAddSecQuestion.setOnClickListener {
+            showSecurityQuestionForm(null, viewModel::addOrUpdateSecurityQuestion)
+        }
 
-            override fun onStopTrackingTouch(seekBar: SeekBar?) {
-                seekBar ?: return
+        observeSecurityQuestions()
+    }
 
-                if (seekBar.progress < 8) {
-                    seekBar.progress = 8
-                    return
-                }
-
-                viewModel.state = viewModel.state.copy(randomLength = seekBar.progress)
-            }
-
-        })
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.saveButton -> viewModel.save()
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     override fun applyStateToView(state: EditPasswordState) {
-        editableServiceName.applyText(state.serviceName)
-        editableUsername.applyText(state.username)
-        editablePassword.applyText(state.password)
-        editableIncludeNumbers.isChecked = state.includeNumbers
-        editableIncludeSymbols.isChecked = state.includeSymbols
-        editableCharLength.progress = state.randomLength
-        editableCharLengthLabel.text = "${state.randomLength} Characters"
-        applyErrors(state.errors)
+        editableServiceName.applyText(state.formState.serviceName)
+        editableUsername.applyText(state.formState.username)
+        editablePassword.applyText(state.formState.password)
+        applyErrors(state.formState.errors)
 
         when(state.workingMode) {
             is EditMode -> activity?.title = "Edit"
@@ -98,7 +107,7 @@ class EditPasswordFragment : StatefulFragment<EditPasswordState, EditPasswordVie
         }
     }
 
-    private fun applyErrors(errors: List<EditPasswordState.EditStateError>) {
+    private fun applyErrors(errors: List<FormError>) {
         if (errors.isEmpty()) {
             editableServiceLayout.error = null
             editableUsernameLayout.error = null
@@ -107,22 +116,41 @@ class EditPasswordFragment : StatefulFragment<EditPasswordState, EditPasswordVie
 
         for (error in errors) {
             when(error) {
-                EditPasswordState.EditStateError.ServiceNameRequired -> editableServiceLayout.error = requireContext().getString(error.description)
-                EditPasswordState.EditStateError.PasswordRequired -> editablePasswordLayout.error = requireContext().getString(error.description)
-                EditPasswordState.EditStateError.PasswordToShort -> editablePasswordLayout.error = requireContext().getString(error.description)
+                FormError.ServiceNameRequired -> editableServiceLayout.error = requireContext().getString(error.description)
+                FormError.PasswordRequired -> editablePasswordLayout.error = requireContext().getString(error.description)
+                FormError.PasswordToShort -> editablePasswordLayout.error = requireContext().getString(error.description)
             }
         }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.edit_menu, menu)
+    private fun observeSecurityQuestions() = viewLifecycleOwner.lifecycleScope.launchWhenCreated {
+        viewModel.stateFlow
+            .map { it.securityQuestions }
+            .distinctUntilChanged()
+            .collect { questions ->
+                if (questions.isNotEmpty()) {
+                    editablePasswordMotionLayout.transitionToEnd()
+                }
+
+                editableSecurityQuestionPlaceHolder.isVisible = questions.isEmpty()
+                securityQuestionAdapter.updateSecurityQuestions(questions)
+            }
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.saveButton -> viewModel.save()
+    private fun showSecurityQuestionForm(securityQuestionState: SecurityQuestionState? = null, onSave: (SecurityQuestionState) -> Unit) {
+        val dialog = SecurityQuestionFormDialog(securityQuestionState) { saveState ->
+            viewModel.addOrUpdateSecurityQuestion(saveState)
+            dismissKeyboard()
         }
-        return super.onOptionsItemSelected(item)
+        dialog.show(childFragmentManager, "security_question_form_dialog")
+    }
+
+    override fun onKeyboardOpened() {
+        editableSecurityQuestionGroup?.isVisible = false
+    }
+
+    override fun onKeyboardClosed() {
+        editableSecurityQuestionGroup?.isVisible = true
     }
 
 }

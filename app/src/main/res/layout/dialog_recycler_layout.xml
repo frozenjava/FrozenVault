@@ -7,30 +7,32 @@
     android:padding="12dp">
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/historyTitle"
+        android:id="@+id/dialogTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         style="@style/TextTitle"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:text="Access History"/>
+        android:text="Access History" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/historyRecycler"
+        android:id="@+id/dialogRecycler"
         android:layout_width="0dp"
         android:layout_height="200dp"
-        app:layout_constraintTop_toBottomOf="@id/historyTitle"
+        app:layout_constraintTop_toBottomOf="@id/dialogTitle"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:orientation="vertical"/>
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/historyPlaceholder"
+        android:id="@+id/dialogPlaceholder"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="@id/historyRecycler"
-        app:layout_constraintEnd_toEndOf="@id/historyRecycler"
-        app:layout_constraintTop_toTopOf="@id/historyRecycler"
-        app:layout_constraintBottom_toBottomOf="@id/historyRecycler"
+        app:layout_constraintStart_toStartOf="@id/dialogRecycler"
+        app:layout_constraintEnd_toEndOf="@id/dialogRecycler"
+        app:layout_constraintTop_toTopOf="@id/dialogRecycler"
+        app:layout_constraintBottom_toBottomOf="@id/dialogRecycler"
         android:text="@string/no_history_to_display"
         android:textStyle="italic"/>
 

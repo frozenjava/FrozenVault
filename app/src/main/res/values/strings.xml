@@ -51,4 +51,13 @@
     <string name="lets_go">Lets Go</string>
     <string name="lets_get_started">Let\s Get Started!</string>
     <string name="unlock_you_vault">Unlock Your Vault</string>
+    <string name="generate">Generate</string>
+    <string name="security_questions">Security Questions</string>
+    <string name="add_new">Add</string>
+    <string name="no_security_questions">No Security Questions</string>
+    <string name="username_example">Example: hpotter@hogwarts.com</string>
+    <string name="service_name_example">Example: Facebook, Gmail, Netflix</string>
+    <string name="security_question">Security Question</string>
+    <string name="question">Question</string>
+    <string name="answer">Answer</string>
 </resources>

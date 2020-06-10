@@ -37,6 +37,7 @@ class PasswordListAdapter : RecyclerView.Adapter<PasswordListAdapter.CellViewHol
         val delete: AppCompatImageView = itemView.passwordCellDelete
         val accessHistoryButton: MaterialButton = itemView.passwordCellAccessHistoryButton
         val updateHistoryButton: MaterialButton = itemView.passwordCellUpdateHistoryButton
+        val securityQuestionButton: MaterialButton = itemView.passwordCellSecurityQuestionButton
         val username: TextInputEditText = itemView.passwordCellUsername
         val password: TextInputEditText = itemView.passwordCellPassword
         val toggleGroup: Group = itemView.passwordCellToggleItems
@@ -58,6 +59,8 @@ class PasswordListAdapter : RecyclerView.Adapter<PasswordListAdapter.CellViewHol
             delete.setOnClickListener { passwordItemDelegate.onElementClicked(PasswordItemDelegate.ClickedElement.DeleteButton, item, position) }
             accessHistoryButton.setOnClickListener { passwordItemDelegate.onElementClicked(PasswordItemDelegate.ClickedElement.AccessHistoryButton, item, position) }
             updateHistoryButton.setOnClickListener { passwordItemDelegate.onElementClicked(PasswordItemDelegate.ClickedElement.UpdateHistoryButton, item, position) }
+            securityQuestionButton.setOnClickListener { passwordItemDelegate.onElementClicked(PasswordItemDelegate.ClickedElement.SecurityQuestionsButton, item, position) }
+            securityQuestionButton.isVisible = item.hasSecurityQuestions
             serviceName.text = item.service
             created.text = "Created ${item.created.toHumanDate() ?: "N/A"}"
             updated.text = "Updated: ${item.lastUpdated?.toHumanDate() ?: "N/A"}"
@@ -87,7 +90,8 @@ class PasswordListAdapter : RecyclerView.Adapter<PasswordListAdapter.CellViewHol
             EditButton,
             DeleteButton,
             UpdateHistoryButton,
-            AccessHistoryButton
+            AccessHistoryButton,
+            SecurityQuestionsButton
         }
     }
 }
