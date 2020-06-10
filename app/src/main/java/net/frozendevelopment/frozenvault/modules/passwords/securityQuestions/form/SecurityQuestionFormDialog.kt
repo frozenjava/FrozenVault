@@ -33,8 +33,8 @@ class SecurityQuestionFormDialog(
         securityQuestionCancel.setOnClickListener { dismiss() }
         securityQuestionSave.setOnClickListener {
             viewModel.save {
-                onSave(it)
                 dismissKeyboard()
+                onSave(it)
                 dismiss()
             }
         }

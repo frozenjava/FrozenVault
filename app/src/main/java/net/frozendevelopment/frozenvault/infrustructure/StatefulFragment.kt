@@ -6,6 +6,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collect
+import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent
+import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEventListener
 
 @ExperimentalCoroutinesApi
 abstract class StatefulFragment<TState, TViewModel: StatefulViewModel<TState>> : Fragment {
@@ -60,6 +62,7 @@ abstract class StatefulFragment<TState, TViewModel: StatefulViewModel<TState>> :
     /**
      * Bind the view lifecycle to the viewmodel.
      * Start observing the viewmodels state flow for changes.
+     * Binds keyboard visibility callbacks to keyboard visibility event.
      */
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -71,6 +74,26 @@ abstract class StatefulFragment<TState, TViewModel: StatefulViewModel<TState>> :
             viewModel.stateFlow.collect { applyStateToView(it) }
         }
 
+        KeyboardVisibilityEvent.setEventListener(requireActivity(), viewLifecycleOwner, object: KeyboardVisibilityEventListener {
+            override fun onVisibilityChanged(isOpen: Boolean) {
+                if (isOpen) {
+                    onKeyboardOpened()
+                } else {
+                    onKeyboardClosed()
+                }
+            }
+        })
+
         return super.onCreateView(inflater, container, savedInstanceState)
     }
+
+    /**
+     * Called when the soft keyboard has been shown
+     */
+    protected open fun onKeyboardOpened() { }
+
+    /**
+     * Called when the soft keyboard has been dismissed
+     */
+    protected open fun onKeyboardClosed() { }
 }

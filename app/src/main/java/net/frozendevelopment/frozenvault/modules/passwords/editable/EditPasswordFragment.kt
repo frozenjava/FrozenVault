@@ -16,6 +16,7 @@ import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.map
 import net.frozendevelopment.frozenvault.R
 import net.frozendevelopment.frozenvault.extensions.applyText
+import net.frozendevelopment.frozenvault.extensions.dismissKeyboard
 import net.frozendevelopment.frozenvault.extensions.markRequired
 import net.frozendevelopment.frozenvault.extensions.onTextChanged
 import net.frozendevelopment.frozenvault.infrustructure.StatefulFragment
@@ -137,12 +138,19 @@ class EditPasswordFragment : StatefulFragment<EditPasswordState, EditPasswordVie
     }
 
     private fun showSecurityQuestionForm(securityQuestionState: SecurityQuestionState? = null, onSave: (SecurityQuestionState) -> Unit) {
-        val dialog =
-            SecurityQuestionFormDialog(
-                securityQuestionState,
-                onSave
-            )
+        val dialog = SecurityQuestionFormDialog(securityQuestionState) { saveState ->
+            viewModel.addOrUpdateSecurityQuestion(saveState)
+            dismissKeyboard()
+        }
         dialog.show(childFragmentManager, "security_question_form_dialog")
+    }
+
+    override fun onKeyboardOpened() {
+        editableSecurityQuestionGroup?.isVisible = false
+    }
+
+    override fun onKeyboardClosed() {
+        editableSecurityQuestionGroup?.isVisible = true
     }
 
 }
