@@ -12,6 +12,7 @@ Available on [Google Play](https://play.google.com/store/apps/details?id=net.fro
 
 ## Features
 * Store passwords encrypted with AES
+* Store security questions encrypted with AES
 * Random password generator
 * View password access and update history
 * View unlock history (failed and successful attempts)
