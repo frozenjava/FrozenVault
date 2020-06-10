@@ -31,17 +31,14 @@ class SetupFragment : StatefulFragment<SetupState, SetupViewModel>(R.layout.frag
 
     override val viewModel: SetupViewModel by viewModel()
 
-    private lateinit var pageAdapter: SetupAdapter
+    private val pageAdapter: SetupAdapter by lazy { SetupAdapter(childFragmentManager) }
 
-    private val fragments: MutableList<Fragment> = mutableListOf(
-        GetStartedFragment(::getStartedCallback),
-        RegistrationFragment(),
-        UnlockFragment()
-    )
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        pageAdapter = SetupAdapter(childFragmentManager)
+    private val fragments: List<Fragment> by lazy {
+        listOf(
+            GetStartedFragment(::getStartedCallback),
+            RegistrationFragment(),
+            UnlockFragment()
+        )
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -89,6 +86,7 @@ class SetupFragment : StatefulFragment<SetupState, SetupViewModel>(R.layout.frag
                 setupViewPager.setCurrentItem(getFragmentIndex(RegistrationFragment::class.java), true)
             }
             SetupState.SetupStage.LOGIN -> {
+                delay(800)
                 setupViewPager.currentItem = getFragmentIndex(UnlockFragment::class.java)
                 setupTitle.setText(R.string.unlock_you_vault)
                 setupMotionLayout.setTransition(R.id.initialLoadStart, R.id.opened)
