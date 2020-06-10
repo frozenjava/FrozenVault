@@ -9,7 +9,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import kotlinx.android.synthetic.main.fragment_history_layout.*
+import kotlinx.android.synthetic.main.dialog_recycler_layout.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collect
@@ -17,7 +17,6 @@ import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.launch
 import net.frozendevelopment.frozenvault.R
 import org.joda.time.DateTime
-import java.util.*
 
 class HistoryDialogFragment : BottomSheetDialogFragment() {
 
@@ -35,17 +34,17 @@ class HistoryDialogFragment : BottomSheetDialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_history_layout, container, false)
+        return inflater.inflate(R.layout.dialog_recycler_layout, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val delegate = delegate ?: return
-        historyTitle.text = requireContext().getString(delegate.getTitleStringResource())
-        historyRecycler.layoutManager = LinearLayoutManager(requireContext())
-        historyRecycler.adapter = adapter
-        historyRecycler.addItemDecoration(DividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL))
-        historyPlaceholder.isVisible = adapter.itemCount == 0
+        dialogTitle.text = requireContext().getString(delegate.getTitleStringResource())
+        dialogRecycler.layoutManager = LinearLayoutManager(requireContext())
+        dialogRecycler.adapter = adapter
+        dialogRecycler.addItemDecoration(DividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL))
+        dialogPlaceholder.isVisible = adapter.itemCount == 0
 
         viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
             delegate.getHistoryData()
@@ -53,7 +52,7 @@ class HistoryDialogFragment : BottomSheetDialogFragment() {
                 .collect { historyItems ->
                     launch(Dispatchers.Main) {
                         adapter.updateItems(historyItems)
-                        historyPlaceholder.isVisible = historyItems.isEmpty()
+                        dialogPlaceholder.isVisible = historyItems.isEmpty()
                     }
                 }
         }

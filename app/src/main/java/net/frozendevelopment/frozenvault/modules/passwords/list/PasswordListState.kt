@@ -10,7 +10,7 @@ data class PasswordListState(
 ) {
 
     data class PasswordCellModel(
-        val id: Int,
+        val id: Long,
         val service: String,
         val username: String?,
         val password: String,
@@ -19,6 +19,7 @@ data class PasswordListState(
         val lastAccessed: DateTime?,
         val updateHistory: List<DateTime>,
         val accessHistory: List<DateTime>,
+        val hasSecurityQuestions: Boolean,
         val expanded: Boolean = false
     ) {
         companion object {
@@ -31,7 +32,8 @@ data class PasswordListState(
                 lastUpdated = model.updateHistory.firstOrNull(),
                 lastAccessed = model.accessHistory.firstOrNull(),
                 updateHistory = model.updateHistory,
-                accessHistory = model.accessHistory
+                accessHistory = model.accessHistory,
+                hasSecurityQuestions = model.securityQuestions.isNotEmpty()
             )
         }
     }

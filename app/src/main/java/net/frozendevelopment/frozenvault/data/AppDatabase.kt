@@ -7,14 +7,19 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import net.frozendevelopment.frozenvault.data.converters.DateConverter
 import net.frozendevelopment.frozenvault.data.converters.ListConverter
+import net.frozendevelopment.frozenvault.data.converters.SecurityQuestionConverter
 import net.frozendevelopment.frozenvault.data.converters.UnLockEventTypeConverter
 import net.frozendevelopment.frozenvault.data.daos.ServicePasswordDao
 import net.frozendevelopment.frozenvault.data.daos.UnlockEventDao
 import net.frozendevelopment.frozenvault.data.models.ServicePasswordModel
 import net.frozendevelopment.frozenvault.data.models.UnlockEventModel
 
-@Database(entities = [ServicePasswordModel::class, UnlockEventModel::class], version = 1)
-@TypeConverters(DateConverter::class, ListConverter::class, UnLockEventTypeConverter::class)
+@TypeConverters(
+    DateConverter::class,
+    ListConverter::class,
+    UnLockEventTypeConverter::class,
+    SecurityQuestionConverter::class)
+@Database(entities = [ServicePasswordModel::class, UnlockEventModel::class], version = 2)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun servicePasswordDao() : ServicePasswordDao
     abstract fun unlockEventDao(): UnlockEventDao
@@ -34,7 +39,9 @@ abstract class AppDatabase : RoomDatabase() {
                     AppDatabase::class.java,
                     "frozenpasswords_database"
                 )
+                .addMigrations(MIGRATION_1_2)
                 .build()
+
                 INSTANCE = instance
                 return instance
             }

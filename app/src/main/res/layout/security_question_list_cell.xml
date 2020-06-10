@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="8dp">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/securityQuestionCellEdit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_edit_black_24dp"
+        android:tint="?android:attr/textColorPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/securityQuestionCellQuestionLabel"
+        app:layout_constraintBottom_toBottomOf="@id/securityQuestionCellQuestionLabel"/>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/securityQuestionCellDelete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_delete_black_24dp"
+        android:tint="?android:attr/textColorPrimary"
+        android:layout_marginEnd="24dp"
+        app:layout_constraintEnd_toStartOf="@id/securityQuestionCellEdit"
+        app:layout_constraintTop_toTopOf="@id/securityQuestionCellEdit"
+        app:layout_constraintBottom_toBottomOf="@id/securityQuestionCellEdit"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/securityQuestionCellQuestionLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/question"
+        style="@style/TextAppearance.MaterialComponents.Subtitle1"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/securityQuestionCellQuestion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textStyle="italic"
+        android:text="What was the name of your first pet?"
+        app:layout_constraintTop_toBottomOf="@id/securityQuestionCellQuestionLabel" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/securityQuestionCellAnswerLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/answer"
+        style="@style/TextAppearance.MaterialComponents.Subtitle1"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/securityQuestionCellQuestion"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/securityQuestionCellAnswer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Scooby-Doo"
+        android:textStyle="italic"
+        app:layout_constraintTop_toBottomOf="@id/securityQuestionCellAnswerLabel" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+

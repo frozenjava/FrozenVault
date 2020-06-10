@@ -8,6 +8,9 @@ import net.frozendevelopment.frozenvault.modules.changepassword.ChangePasswordVi
 import net.frozendevelopment.frozenvault.modules.passwords.editable.EditPasswordViewModel
 import net.frozendevelopment.frozenvault.modules.passwords.editable.WorkingMode
 import net.frozendevelopment.frozenvault.modules.passwords.list.PasswordListViewModel
+import net.frozendevelopment.frozenvault.modules.passwords.securityQuestions.SecurityQuestionState
+import net.frozendevelopment.frozenvault.modules.passwords.securityQuestions.form.SecurityQuestionFormViewModel
+import net.frozendevelopment.frozenvault.modules.passwords.securityQuestions.list.SecurityQuestionListViewModel
 import net.frozendevelopment.frozenvault.modules.settings.SettingsViewModel
 import net.frozendevelopment.frozenvault.modules.setup.SetupViewModel
 import net.frozendevelopment.frozenvault.modules.setup.components.register.RegistrationViewModel
@@ -37,4 +40,6 @@ val viewModelsModule = module {
     viewModel { ChangePasswordViewModel(get(), get()) }
     viewModel { SetupViewModel(get()) }
     viewModel { RegistrationViewModel(get()) }
+    viewModel { (initialState: SecurityQuestionState?) -> SecurityQuestionFormViewModel(initialState) }
+    viewModel { (servicePasswordId: Long) -> SecurityQuestionListViewModel(servicePasswordId, get(), get()) }
 }

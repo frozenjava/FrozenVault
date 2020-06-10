@@ -3,9 +3,12 @@ package net.frozendevelopment.frozenvault.infrustructure
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.buffer
+import kotlinx.coroutines.flow.produceIn
 import kotlinx.coroutines.launch
 
 @ExperimentalCoroutinesApi
@@ -21,11 +24,7 @@ abstract class StatefulViewModel<TState> : ViewModel(), LifecycleObserver {
 
     var state: TState
         get() = stateFlow.value ?: getDefaultState()
-        set(value) {
-            viewModelScope.launch {
-                _stateFlow.value = value
-            }
-        }
+        set(value) { _stateFlow.value = value }
 
     protected abstract fun getDefaultState(): TState
 }

@@ -3,7 +3,6 @@ package net.frozendevelopment.frozenvault.data.models
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import org.joda.time.DateTime
-import java.util.*
 
 @Entity(tableName = "ServicePasswords")
 data class ServicePasswordModel(
@@ -12,7 +11,13 @@ data class ServicePasswordModel(
     val password: String,
     val created: DateTime,
     val updateHistory: List<DateTime> = emptyList(),
-    val accessHistory: List<DateTime> = emptyList()
+    val accessHistory: List<DateTime> = emptyList(),
+    val securityQuestions: List<SecurityQuestionModel> = emptyList()
 ) {
-    @PrimaryKey(autoGenerate = true) var id: Int = 0
+    @PrimaryKey(autoGenerate = true) var id: Long = 0
 }
+
+data class SecurityQuestionModel(
+    val encryptedQuestion: String,
+    val encryptedAnswer: String
+)
